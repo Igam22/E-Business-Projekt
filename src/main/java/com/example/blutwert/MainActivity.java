@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         btn_add = findViewById(R.id.btn_add);
         btn_viewAll = findViewById(R.id.btn_viewAll);
+        btn_viewAll.setVisibility(View.GONE);
         et_datum = findViewById(R.id.et_datum);
         et_eisengehalt = findViewById(R.id.et_eisengehalt);
         et_cholesteringehalt = findViewById(R.id.et_cholesteringehalt);
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         et_vitamind = findViewById(R.id.et_vitamind);
         et_vitaminb12 = findViewById(R.id.et_vitaminb12);
         lv_customerList = findViewById(R.id.lv_customerList);
+
 
         //button listerners for the add and view all buttons
         btn_add.setOnClickListener(new View.OnClickListener() {

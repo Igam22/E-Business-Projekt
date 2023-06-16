@@ -52,6 +52,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         cv.put(COLUMN_CUSTOMER_DATUM, customerModel.getDatum());
         cv.put(COLUMN_CUSTOMER_EISENGEHALT, customerModel.getEisengehalt());
+        cv.put(COLUMN_CUSTOMER_CHOLOSTERINGEHALT, customerModel.getCholesteringehalt());
         cv.put(COLUMN_CUSTOMER_BLUTZUCKER, customerModel.getBlutzucker());
         cv.put(COLUMN_CUSTOMER_TRIGLYCERIDE, customerModel.getTriglyceride());
         cv.put(COLUMN_CUSTOMER_BLUTDRUCK, customerModel.getBlutdruck());
