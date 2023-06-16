@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BloodRecommendationApp</string>
+    <string name="kaloriearm">Kaloriearm</string>
+    <string name="vegetarisch">Vegetarisch</string>
+    <string name="vegan">Vegan</string>
+    <string name="fettarm">Fettarm</string>
+    <string name="proteinreich">Proteinreich</string>
+    <string name="letzte_bestellungen">Letzte Bestellungen</string>
+    <string name="deine_heutigen_empfehlungen">Deine heutigen Empfehlungen</string>
+    <string name="alle_empfehlungen_in_deinen_einkaufswagen_bernehmen">Alle Empfehlungen in deinen Einkaufswagen übernehmen</string>
+</resources>
