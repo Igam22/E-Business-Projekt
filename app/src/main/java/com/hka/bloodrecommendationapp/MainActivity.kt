@@ -7,11 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity :  AppCompatActivity() {
     private lateinit var searchView: SearchView
+    private lateinit var dbManager: DbManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         searchView = findViewById(R.id.search_bar1)
+        dbManager = DbManager(this)
+        dbManager.open()
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
