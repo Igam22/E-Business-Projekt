@@ -6,10 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+// Funktionen für SQLite Datenbank Aufrufe
 public class DBHelper extends SQLiteOpenHelper{
-
-    public static final String DBNAME = "register.db";
-
     public DBHelper(Context context){
         super(context, "register.db",  null, 1);
     }
@@ -26,6 +24,8 @@ public class DBHelper extends SQLiteOpenHelper{
         MyDB.execSQL("drop Table if exists person");
 
     }
+
+    // Funktionen zum Schreiben von Daten
     public Boolean insertData(String name, String mail, String password, String passwordrepeat){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -38,6 +38,7 @@ public class DBHelper extends SQLiteOpenHelper{
         return result != -1;
     }
 
+    // Funktion zum überschreiben von Daten
     public Boolean replaceData(String name, String mail, String password, String passwordrepeat){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -50,6 +51,7 @@ public class DBHelper extends SQLiteOpenHelper{
         return result != -1;
     }
 
+    // Funktion zum Finden existierender Konten
     public Boolean checkMail(String mail){
 
         SQLiteDatabase MyDB = this.getWritableDatabase();
@@ -57,12 +59,11 @@ public class DBHelper extends SQLiteOpenHelper{
         return cursor.getCount() > 0;
     }
 
-
+    // Funktion für Passwortabgleich
     public Boolean checkEmailPassword(String mail, String password) {
 
         SQLiteDatabase MyDB = this.getWritableDatabase();
         Cursor cursor = MyDB.rawQuery("select * from person where mail = ? and password = ?", new String[] {mail, password});
         return cursor.getCount() > 0;
     }
-
 }
