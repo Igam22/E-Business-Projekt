@@ -1,16 +1,15 @@
 package com.example.myapplication;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 // Klasse zum Passwortzurücksetzen
 public class ForgotPage extends AppCompatActivity {
@@ -38,65 +37,59 @@ public class ForgotPage extends AppCompatActivity {
 
         // Link zur LoginPage
         goToLogin = (Button) findViewById(R.id.button_loginScreen);
-        goToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), LoginPage.class);
-                view.getContext().startActivity(intent);}
-        });
+        goToLogin.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), LoginPage.class);
+            view.getContext().startActivity(intent);});
 
         // Button zum Passwortzurücksetzen
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String namee = name.getText().toString();
-                String maill = mail.getText().toString();
-                String passwordd = password.getText().toString();
-                String passwordrepeatt = passwordrepeat.getText().toString();
-                Matcher matcher = pattern.matcher(maill);
+        submit.setOnClickListener(view -> {
+            String namee = name.getText().toString();
+            String maill = mail.getText().toString();
+            String passwordd = password.getText().toString();
+            String passwordrepeatt = passwordrepeat.getText().toString();
+            Matcher matcher = pattern.matcher(maill);
 
-                // Plausibilitätschecks
-                if(namee.equals("") || maill.equals("") || passwordd.equals("") || passwordrepeatt.equals(""))
+            // Plausibilitätschecks
+            if(namee.equals("") || maill.equals("") || passwordd.equals("") || passwordrepeatt.equals(""))
+            {
+                Toast.makeText(ForgotPage.this, "Bitte keines der Felder leer lassen.", Toast.LENGTH_SHORT).show();
+            }
+            else if (!matcher.matches()) {
+                Toast.makeText(ForgotPage.this, "Bitte valide E-Mail angeben", Toast.LENGTH_SHORT).show();
+            }
+
+            else if (!(passwordd.equals(passwordrepeatt))) {
+                Toast.makeText(ForgotPage.this, "Bitte Passwort kontrollieren.", Toast.LENGTH_SHORT).show();
+            }
+            else if (passwordd.length()<8) {
+                Toast.makeText(ForgotPage.this, "Das Passwort muss mindestens 8 Zeichen lang sein", Toast.LENGTH_SHORT).show();
+            }
+
+            else
+            {
+                Boolean result = MyDB.checkMail(maill);
+
+                // Wenn Konto nicht existiert kann Passwort nicht zurückgesetzt werden
+                if(!result)
                 {
-                    Toast.makeText(ForgotPage.this, "Bitte keines der Felder leer lassen.", Toast.LENGTH_SHORT).show();
-                }
-                else if (!matcher.matches()) {
-                    Toast.makeText(ForgotPage.this, "Bitte valide E-Mail angeben", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPage.this, "Dieses Konto existiert nicht!", Toast.LENGTH_SHORT).show();
                 }
 
-                else if (!(passwordd.equals(passwordrepeatt))) {
-                    Toast.makeText(ForgotPage.this, "Bitte Passwort kontrollieren.", Toast.LENGTH_SHORT).show();
-                }
-                else if (passwordd.length()<8) {
-                    Toast.makeText(ForgotPage.this, "Das Passwort muss mindestens 8 Zeichen lang sein", Toast.LENGTH_SHORT).show();
-                }
-
-                else
-                {
-                    Boolean result = MyDB.checkMail(maill);
-
-                    // Wenn Konto nicht existiert kann Passwort nicht zurückgesetzt werden
-                    if(result == false)
+                // Passwort zurücksetzen
+                else{
+                    Boolean res = MyDB.replaceData(namee, maill, passwordd, passwordrepeatt);
+                    if(res)
                     {
-                        Toast.makeText(ForgotPage.this, "Dieses Konto existiert nicht!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPage.this,"Passwort zurückgesetzt.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ForgotPage.this, LoginPage.class);
+                        ForgotPage.this.startActivity(intent);
                     }
-
-                    // Passwort zurücksetzen
-                    else{
-                        Boolean res = MyDB.replaceData(namee, maill, passwordd, passwordrepeatt);
-                        if(res==true)
-                        {
-                            Toast.makeText(ForgotPage.this,"Passwort zurückgesetzt.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(ForgotPage.this, LoginPage.class);
-                            ForgotPage.this.startActivity(intent);
-                        }
-                        else
-                        {
-                            Toast.makeText(ForgotPage.this,"Passwort konnte nicht zurückgesetzt werden.", Toast.LENGTH_SHORT).show();
-                        }
+                    else
+                    {
+                        Toast.makeText(ForgotPage.this,"Passwort konnte nicht zurückgesetzt werden.", Toast.LENGTH_SHORT).show();
                     }
-
                 }
+
             }
         });
     }

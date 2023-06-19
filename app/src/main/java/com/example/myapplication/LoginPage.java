@@ -1,13 +1,12 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 // Klasse für den Login
 public class LoginPage extends AppCompatActivity {
@@ -30,59 +29,50 @@ public class LoginPage extends AppCompatActivity {
 
         // Link zur Registrierung
         goToRegister = (Button) findViewById(R.id.button_register);
-        goToRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), RegisterPage.class);
-                view.getContext().startActivity(intent);}
-        });
+        goToRegister.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), RegisterPage.class);
+            view.getContext().startActivity(intent);});
 
         // Link zum Passwortzurücksetzen
         forgot = (Button) findViewById(R.id.button_forgot_password);
-        forgot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ForgotPage.class);
-                view.getContext().startActivity(intent);}
-        });
+        forgot.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(), ForgotPage.class);
+            view.getContext().startActivity(intent);});
 
         // Button für Login
         button2 = (Button) findViewById(R.id.action_login);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        button2.setOnClickListener(v -> {
 
-                String maill = mail.getText().toString();
-                String passwordd = password.getText().toString();
+            String maill = mail.getText().toString();
+            String passwordd = password.getText().toString();
 
-                // Plausibilitätschecks
-                if(mail.equals(""))
+            // Plausibilitätschecks
+            if(maill.equals(""))
+            {
+                Toast.makeText(LoginPage.this, "Enter email", Toast.LENGTH_SHORT).show();
+            }
+
+             else{
+                Boolean result = MyDB.checkMail(maill);
+
+
+                if(!result)
                 {
-                    Toast.makeText(LoginPage.this, "Enter email", Toast.LENGTH_SHORT).show();
+                    // User existiert nicht
+                    Toast.makeText(LoginPage.this, "Benutzer nicht gefunden.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), RegisterPage.class);
+                    startActivity(intent);
                 }
 
-                 else{
-                    Boolean result = MyDB.checkMail(maill);
+                else if(!MyDB.checkEmailPassword(maill, passwordd)){
+                    // Nutzer und Passwort stimmen nicht überein
+                    Toast.makeText(LoginPage.this, "Passwort ist inkorrekt.", Toast.LENGTH_SHORT).show();
+                }
 
-
-                    if(result == false)
-                    {
-                        // User existiert nicht
-                        Toast.makeText(LoginPage.this, "Benutzer nicht gefunden.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), RegisterPage.class);
-                        startActivity(intent);
-                    }
-
-                    else if(!MyDB.checkEmailPassword(maill, passwordd)){
-                        // Nutzer und Passwort stimmen nicht überein
-                        Toast.makeText(LoginPage.this, "Passwort ist inkorrekt.", Toast.LENGTH_SHORT).show();
-                    }
-
-                    else{
-                        // Login erfolgreich
-                        Intent intent = new Intent(getApplicationContext(), Home.class);
-                        startActivity(intent);
-                    }
+                else{
+                    // Login erfolgreich
+                    Intent intent = new Intent(getApplicationContext(), Home.class);
+                    startActivity(intent);
                 }
             }
         });
