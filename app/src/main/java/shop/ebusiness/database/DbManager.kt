@@ -1,8 +1,3 @@
-import android.content.Context
-import android.database.SQLException
-import android.database.sqlite.SQLiteDatabase
-import com.hka.bloodrecommendationapp.Database.DatabaseHelper
-
 class DbManager(c: Context) {
     private lateinit var dbHelper: DatabaseHelper
     private var context: Context = c
@@ -17,6 +12,22 @@ class DbManager(c: Context) {
     }
     fun close() {
         dbHelper.close()
+    }
+
+    fun getAllFruits(): List<ProductList> {
+        return dbHelper.getAllFruits()
+    }
+
+    fun getAllVegetables(): List<ProductList> {
+        return dbHelper.getAllVegetables()
+    }
+
+    fun getAllProducts(): ArrayList<ProductList> {
+        return dbHelper.getAllProducts()
+    }
+
+    fun search(keyword: String): List<ProductList?>? {
+        return dbHelper.search(keyword)
     }
 
 }
