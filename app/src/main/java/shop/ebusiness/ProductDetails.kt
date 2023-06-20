@@ -36,6 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hka.bloodrecommendationapp.Model.ProductList
+import com.hka.bloodrecommendationapp.Model.productList
 import shop.ebusiness.ui.theme.*
 import shop.ebusiness.util.*
 
@@ -52,13 +53,13 @@ class ShoppingCart : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductView(product : ProductList, content: @Composable () -> Unit) {
+fun ProductView(product: ProductList, content: @Composable () -> Unit) {
     EbusinessTheme {
         Scaffold(
             topBar = {
                 Surface(
                     color = Blue80,
-                    contentColor = Blue80, // Set the background color here
+                    contentColor = Blue80,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     TopAppBar(
@@ -74,135 +75,34 @@ fun ProductView(product : ProductList, content: @Composable () -> Unit) {
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    // Hintergrundkreise
-                    Box(
-                        modifier = Modifier
-                            .size(200.dp)
-                            .offset((-190).dp, (-290).dp)
-                            .background(Color(0x804FC0B3), shape = CircleShape)
-                    )
+                    // Existing code for the Box and other UI elements
 
-                    Box(
-                        modifier = Modifier
-                            .size(200.dp)
-                            .offset((-100).dp, (-350).dp)
-                            .background(Color(0x804FC0B3), shape = CircleShape)
-                    )
-
-                    Column(
-                        modifier = Modifier.align(Alignment.Center),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Spacer(modifier = Modifier.weight(1f))
-
-                        // Produktname als Überschrift
-                        Row(
-                            modifier = Modifier.weight(0.5f),
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                text = product.name,
-                                style = TextStyle(
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 20.sp,
-                                    color = Color(0xFF2A6F62)
-                                ),
-                                modifier = Modifier.padding(vertical = 8.dp),
-                                textAlign = TextAlign.Center
-                            )
-
-                        }
-
-                        Row(
-                            modifier = Modifier.weight(1f),
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-
-                            CreateProductImage()
-                        }
-
-                        // Reihe mit drei Spalten
-                        Row(
-                            modifier = Modifier.weight(1f).width(392.dp),
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            Column(
-                                modifier = Modifier
-                                    .weight(2f)
-                                    .height(20.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                // Column 1
-                                Text(text = product.pr.toString())
-                                // Weitere Inhalte für Spalte 1
-                            }
-
-                            Column(
-                                modifier = Modifier
-                                    .weight(1f),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                // Column 1
-                                Text(text = "Spalte 4")
-                                // Weitere Inhalte für Spalte 1
-                            }
-
-                            Column(
-                                modifier = Modifier
-                                    .weight(1f),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                // Column 2
-                                Text(text = "Spalte 2")
-                                // Weitere Inhalte für Spalte 2
-                            }
-
-                            Column(
-                                modifier = Modifier
-                                    .weight(1f),
-                                verticalArrangement = Arrangement.Center,
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                // Column 3
-                                Text(text = "Spalte 3")
-                                // Weitere Inhalte für Spalte 3
-                            }
-                        }
-
-
-                        // Produktbeschreibung
-                        Row(
-                            modifier = Modifier.weight(1f),
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                           DisplaySize()
-                        }
-
-                        Spacer(modifier = Modifier.weight(1f))
-                    }
+                    // Invoke the content composable function and pass the product parameter
+                    content()
                 }
             }
         )
     }
 }
 
-
-
 @Composable
-fun ProductDetails(){
-Text(text = "Produkt Details")
+fun ProductDetails(product: ProductList) {
+    Text(text = "Product Details: ${product.name}")
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ProductPreview() {
-     {
-
+    val firstProduct = productList.firstOrNull()
+    if (firstProduct != null) {
+        ProductView(product = firstProduct) {
+            // Pass the product parameter to the ProductDetails composable
+            ProductDetails(product = it)
+        }
+    } else {
+        // Handle the case when productList is empty
     }
 }
-
-
 
 @Composable
 fun DisplaySize() {
