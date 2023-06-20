@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -36,79 +37,195 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.hka.bloodrecommendationapp.Model.ProductList
-import com.hka.bloodrecommendationapp.Model.productList
+import shop.ebusiness.database.DbManager
 import shop.ebusiness.ui.theme.*
 import shop.ebusiness.util.*
 
 class ShoppingCart : ComponentActivity() {
+    private lateinit var dbManager: DbManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
+        dbManager = DbManager(this)
+        dbManager.open()
 
+        setContent {
+            ProductPreview()
         }
     }
-}
-// q: Can you optimize the following method?
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ProductView(product: ProductList, content: @Composable () -> Unit) {
-    EbusinessTheme {
-        Scaffold(
-            topBar = {
-                Surface(
-                    color = Blue80,
-                    contentColor = Blue80,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    TopAppBar(
-                        title = { Text(text = "Shopping Cart") },
-                        navigationIcon = { BackIcon() },
-                        actions = { ShoppingCartIcon() },
-                        modifier = Modifier.background(Color(0xFF4FC0B3))
-                    )
-                }
-            },
-            content = {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    // Existing code for the Box and other UI elements
-
-                    // Invoke the content composable function and pass the product parameter
-                    content()
-                }
-            }
-        )
-    }
-}
 
 @Composable
 fun ProductDetails(product: ProductList) {
     Text(text = "Product Details: ${product.name}")
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ProductPreview() {
-    val firstProduct = productList.firstOrNull()
-    if (firstProduct != null) {
-        ProductView(product = firstProduct) {
-            // Pass the product parameter to the ProductDetails composable
-            ProductDetails(product = it)
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun ProductView(product : ProductList, content: @Composable () -> Unit) {
+        EbusinessTheme {
+            Scaffold(
+                topBar = {
+                    Surface(
+                        color = Blue80,
+                        contentColor = Blue80, // Set the background color here
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        TopAppBar(
+                            title = { Text(text = "Shopping Cart") },
+                            navigationIcon = { BackIcon() },
+                            actions = { ShoppingCartIcon() },
+                            modifier = Modifier.background(Color(0xFF4FC0B3))
+                        )
+                    }
+                },
+                content = {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        // Hintergrundkreise
+                        Box(
+                            modifier = Modifier
+                                .size(200.dp)
+                                .offset((-190).dp, (-290).dp)
+                                .background(Color(0x804FC0B3), shape = CircleShape)
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .size(200.dp)
+                                .offset((-100).dp, (-350).dp)
+                                .background(Color(0x804FC0B3), shape = CircleShape)
+                        )
+
+                        Column(
+                            modifier = Modifier.align(Alignment.Center),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Spacer(modifier = Modifier.weight(1f))
+
+                            // Produktname als Überschrift
+                            Row(
+                                modifier = Modifier.weight(0.5f),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = product.name,
+                                    style = TextStyle(
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 20.sp,
+                                        color = Color(0xFF2A6F62)
+                                    ),
+                                    modifier = Modifier.padding(vertical = 8.dp),
+                                    textAlign = TextAlign.Center
+                                )
+
+                            }
+
+                            Row(
+                                modifier = Modifier.weight(1f),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+
+                                CreateProductImage()
+                            }
+
+                            // Reihe mit drei Spalten
+                            Row(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .width(392.dp),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Column(
+                                    modifier = Modifier
+                                        .weight(2f)
+                                        .height(20.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    // Column 1
+                                    Text(text = product.pr.toString() + " €/kg",
+                                        style = MaterialTheme.typography.bodyLarge , // Set the text style to MaterialTheme typography with h6 style
+                                        fontWeight = FontWeight.Bold, // Set the text weight to bold
+                                        fontSize = 20.sp)
+                                    // Weitere Inhalte für Spalte 1
+                                }
+
+                                Column(
+                                    modifier = Modifier
+                                        .weight(1f),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    DecreaseIcon()
+                                }
+
+                                Column(
+                                    modifier = Modifier
+                                        .weight(1f),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    // Column 2
+                                    Text(text = "Spalte 2",
+                                        style = MaterialTheme.typography.bodyLarge , // Set the text style to MaterialTheme typography with h6 style
+                                        fontWeight = FontWeight.Bold, // Set the text weight to bold
+                                        fontSize = 20.sp)
+                                    // Weitere Inhalte für Spalte 2
+                                }
+
+                                Column(
+                                    modifier = Modifier
+                                        .weight(1f),
+                                    verticalArrangement = Arrangement.Center,
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    AddIcon()
+                                }
+                            }
+
+
+                            // Produktbeschreibung
+                            Row(
+                                modifier = Modifier.weight(1f),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                DisplaySize()
+                            }
+
+                            Spacer(modifier = Modifier.weight(1f))
+                        }
+                    }
+                }
+            )
         }
-    } else {
-        // Handle the case when productList is empty
     }
-}
 
-@Composable
-fun DisplaySize() {
-    val screenWidthDp = LocalConfiguration.current.screenWidthDp
-    val screenHeightDp = LocalConfiguration.current.screenHeightDp
 
-    Text("Screen Width: $screenWidthDp dp")
-    Text("Screen Height: $screenHeightDp dp")
-}
+    @Composable
+    fun ProductDetails(){
+        Text(text = "Produkt Details")
+    }
+
+    val product = ProductList().apply { name = "Erdbeeren"; her = "Hersteller"; pr = 4.99;  }
+
+
+
+    @Preview(showBackground = true)
+    @Composable
+    fun ProductPreview() {
+        ProductView(product, content = { ProductDetails() })
+    }
+
+
+
+
+    @Composable
+    fun DisplaySize() {
+        val screenWidthDp = LocalConfiguration.current.screenWidthDp
+        val screenHeightDp = LocalConfiguration.current.screenHeightDp
+
+        Text("Screen Width: $screenWidthDp dp")
+        Text("Screen Height: $screenHeightDp dp")
+    }}

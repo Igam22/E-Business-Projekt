@@ -2,8 +2,12 @@ package shop.ebusiness.util
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +35,37 @@ fun BackIcon(){
         }
     }
 }
+
+@Composable
+fun DecreaseIcon() {
+    Button(
+        onClick = {},
+        shape = CircleShape,
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4FC0B3))
+    ) {
+        Icon(
+            imageVector = Icons.Default.Delete,
+            contentDescription = "Minus",
+            tint = MaterialTheme.colorScheme.onSurface
+        )
+    }
+}
+
+@Composable
+fun AddIcon() {
+    Button(
+        onClick = {},
+        shape = CircleShape,
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4FC0B3))
+    ) {
+        Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = "Plus",
+            tint = MaterialTheme.colorScheme.onSurface
+        )
+    }
+}
+
 
 @Composable
 fun ShoppingCartIcon() {
