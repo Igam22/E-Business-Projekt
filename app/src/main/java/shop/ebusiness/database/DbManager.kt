@@ -1,3 +1,8 @@
+import android.content.Context
+import android.database.SQLException
+import android.database.sqlite.SQLiteDatabase
+import com.hka.bloodrecommendationapp.Model.ProductList
+
 class DbManager(c: Context) {
     private lateinit var dbHelper: DatabaseHelper
     private var context: Context = c

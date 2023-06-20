@@ -1,3 +1,9 @@
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.appcompat.widget.SearchView
+import shop.ebusiness.R
+
 class HomeActivity : ComponentActivity() {
     private lateinit var dbManager: DbManager
 

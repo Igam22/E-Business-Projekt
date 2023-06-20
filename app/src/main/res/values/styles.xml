@@ -1,0 +1,7 @@
+<resources>
+    <!-- Other styles... -->
+
+    <style name="Theme.Ebusiness" parent="Theme.MaterialComponents.Light">
+        <!-- Customize the style as needed -->
+    </style>
+</resources>

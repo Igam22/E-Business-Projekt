@@ -97,7 +97,6 @@ fun ProductPreview() {
     if (firstProduct != null) {
         ProductView(product = firstProduct) {
             // Pass the product parameter to the ProductDetails composable
-            ProductDetails(product = it)
         }
     } else {
         // Handle the case when productList is empty

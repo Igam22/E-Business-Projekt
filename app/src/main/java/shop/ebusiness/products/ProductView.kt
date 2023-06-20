@@ -20,8 +20,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import com.hka.bloodrecommendationapp.Database.DatabaseHelper
-import com.hka.bloodrecommendationapp.Model.ProductList
 import shop.ebusiness.R
 
 @Composable

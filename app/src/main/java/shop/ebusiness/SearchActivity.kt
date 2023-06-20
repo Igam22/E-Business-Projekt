@@ -1,3 +1,10 @@
+import android.os.Bundle
+import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import com.hka.bloodrecommendationapp.Model.ProductList
+import shop.ebusiness.R
+
 class SearchActivity : AppCompatActivity() {
     internal var helper = DatabaseHelper(this)
     private lateinit var listView: ListView
