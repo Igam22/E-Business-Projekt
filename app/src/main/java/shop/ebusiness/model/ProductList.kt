@@ -14,6 +14,7 @@ class ProductList {
     var fet:Boolean=false
     var kal:Boolean=false
     var pr:Double=0.0
+    lateinit var einh_preis:String
 }
 
 val productList: List<ProductList> = listOf(
