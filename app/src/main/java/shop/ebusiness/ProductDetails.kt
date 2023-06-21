@@ -93,7 +93,7 @@ class ShoppingCart : ComponentActivity() {
                                 .offset((-190).dp, (-290).dp)
                                 .background(Color(0x804FC0B3), shape = CircleShape)
                         )
-
+                        // Hintergrundkreise
                         Box(
                             modifier = Modifier
                                 .size(200.dp)
@@ -111,7 +111,9 @@ class ShoppingCart : ComponentActivity() {
                             Row(
                                 modifier = Modifier.weight(0.5f),
                                 horizontalArrangement = Arrangement.Center
-                            ) {
+                            )
+                            // Anzeigen des Produktnamens
+                            {
                                 Text(
                                     text = product.name,
                                     style = TextStyle(
@@ -129,11 +131,10 @@ class ShoppingCart : ComponentActivity() {
                                 modifier = Modifier.weight(1f),
                                 horizontalArrangement = Arrangement.Center
                             ) {
-
+                                // Anzeigen des Produktbildes
                                 CreateProductImage()
                             }
 
-                            // Reihe mit drei Spalten
                             Row(
                                 modifier = Modifier
                                     .weight(1f)
@@ -146,12 +147,12 @@ class ShoppingCart : ComponentActivity() {
                                         .height(40.dp),
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
-                                    // Column 1
+                                    // Anzeige des Preises unter dem Bild
                                     Text(text = product.pr.toString() + " €/kg",
                                         style = MaterialTheme.typography.bodyLarge , // Set the text style to MaterialTheme typography with h6 style
                                         fontWeight = FontWeight.Bold, // Set the text weight to bold
                                         fontSize = 20.sp)
-                                    // Weitere Inhalte für Spalte 1
+
                                 }
 
                                 Column(
@@ -159,6 +160,7 @@ class ShoppingCart : ComponentActivity() {
                                         .weight(1f),
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
+                                    // Menge verringern
                                     DecreaseIcon()
                                 }
 
