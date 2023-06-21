@@ -189,11 +189,16 @@ class ShoppingCart : ComponentActivity() {
                             }
 
 
-                            // Produktbeschreibung
+                            // Hersteller
                             Row(
-                                modifier = Modifier.weight(0.5f).height(4.dp),
-                                horizontalArrangement = Arrangement.Center
+                                modifier = Modifier
+                                    .weight(0.5f)
+                                    .height(2.dp),
                             ) {
+
+                                Column(modifier = Modifier
+                                    .weight(1f).padding(start = 16.dp)) {
+
                                 Text(
                                     text = product.her,
                                     style = TextStyle(
@@ -202,9 +207,9 @@ class ShoppingCart : ComponentActivity() {
                                         color = Color(0xFF2A6F62)
                                     ),
                                     modifier = Modifier.padding(vertical = 8.dp),
-                                    textAlign = TextAlign.Center
+                                    textAlign = TextAlign.Left
                                 )
-                            }
+                            }}
 
                             Row(
                                 modifier = Modifier.weight(1f),
@@ -243,17 +248,29 @@ class ShoppingCart : ComponentActivity() {
     @Composable
     fun DisplayDescription(product: ProductList) {
         Surface(
-            color = Color.White, // Set the background color of the box to white
-            shape = RoundedCornerShape(8.dp), // Set the shape of the box (rounded corners)
-            border = BorderStroke(1.dp, Color(0xFF348077)), // Set the border color and width
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp) // Set the padding
+            color = Color.White,
+            shape = RoundedCornerShape(8.dp),
+            border = BorderStroke(1.dp, Color(0xFF348077)),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            Text(
-                text = product.war,
-                style = MaterialTheme.typography.bodyLarge, // Apply the desired Material font style
-                modifier = Modifier.padding(8.dp) // Set the padding within the box
-            )
+            Column(modifier = Modifier.padding(8.dp)) {
+                Text(
+                    text = "Beschreibung",
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        color = Color(0xFF2A6F62)
+                    ),
+                    modifier = Modifier.padding(bottom = 14.dp)
+                )
+                Text(
+                    text = product.war,
+                    style = MaterialTheme.typography.bodyLarge, // Adjust the typography style as needed
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
         }
     }
-        
-    }
+
+
+}
