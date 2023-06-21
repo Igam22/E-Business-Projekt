@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import shop.ebusiness.model.ProductList
 import shop.ebusiness.R
+import shop.ebusiness.database.DatabaseHelper
+import shop.ebusiness.database.DbManager
 
 class SearchActivity : AppCompatActivity() {
     internal var helper = DatabaseHelper(this)

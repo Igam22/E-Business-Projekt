@@ -3,6 +3,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.appcompat.widget.SearchView
 import shop.ebusiness.R
+import shop.ebusiness.database.DbManager
 
 class HomeActivity : ComponentActivity() {
     private lateinit var dbManager: DbManager

@@ -1,7 +1,7 @@
 package shop.ebusiness
 
+import CircleBackground
 import CreateProductImage
-import DbManager
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -16,11 +16,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -38,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import shop.ebusiness.database.DbManager
 import shop.ebusiness.model.ProductList
 import shop.ebusiness.ui.theme.*
 import shop.ebusiness.util.*
@@ -87,19 +85,7 @@ class ShoppingCart : ComponentActivity() {
                         contentAlignment = Alignment.Center
                     ) {
                         // Hintergrundkreise
-                        Box(
-                            modifier = Modifier
-                                .size(200.dp)
-                                .offset((-190).dp, (-290).dp)
-                                .background(Color(0x804FC0B3), shape = CircleShape)
-                        )
-                        // Hintergrundkreise
-                        Box(
-                            modifier = Modifier
-                                .size(200.dp)
-                                .offset((-100).dp, (-350).dp)
-                                .background(Color(0x804FC0B3), shape = CircleShape)
-                        )
+                        CircleBackground()
 
                         Column(
                             modifier = Modifier.align(Alignment.Center),
@@ -114,16 +100,7 @@ class ShoppingCart : ComponentActivity() {
                             )
                             // Anzeigen des Produktnamens
                             {
-                                Text(
-                                    text = product.name,
-                                    style = TextStyle(
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 20.sp,
-                                        color = Color(0xFF2A6F62)
-                                    ),
-                                    modifier = Modifier.padding(vertical = 8.dp),
-                                    textAlign = TextAlign.Center
-                                )
+                                ShowProductName()
 
                             }
 
@@ -148,10 +125,7 @@ class ShoppingCart : ComponentActivity() {
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
                                     // Anzeige des Preises unter dem Bild
-                                    Text(text = product.pr.toString() + " €/kg",
-                                        style = MaterialTheme.typography.bodyLarge , // Set the text style to MaterialTheme typography with h6 style
-                                        fontWeight = FontWeight.Bold, // Set the text weight to bold
-                                        fontSize = 20.sp)
+                                    ShowProductPrice()
 
                                 }
 
@@ -170,12 +144,8 @@ class ShoppingCart : ComponentActivity() {
                                     verticalArrangement = Arrangement.Center,
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
-                                    // Column 2
-                                    Text(text = " 100g ",
-                                        style = MaterialTheme.typography.bodyLarge , // Set the text style to MaterialTheme typography with h6 style
-                                        fontWeight = FontWeight.Bold, // Set the text weight to bold
-                                        fontSize = 20.sp)
-                                    // Weitere Inhalte für Spalte 2
+                                    ShowAmount()
+
                                 }
 
                                 Column(
@@ -191,19 +161,12 @@ class ShoppingCart : ComponentActivity() {
 
                             // Produktbeschreibung
                             Row(
-                                modifier = Modifier.weight(0.5f).height(4.dp),
+                                modifier = Modifier
+                                    .weight(0.5f)
+                                    .height(4.dp),
                                 horizontalArrangement = Arrangement.Center
                             ) {
-                                Text(
-                                    text = product.her,
-                                    style = TextStyle(
-                                        fontWeight = FontWeight.Bold,
-                                        fontSize = 20.sp,
-                                        color = Color(0xFF2A6F62)
-                                    ),
-                                    modifier = Modifier.padding(vertical = 8.dp),
-                                    textAlign = TextAlign.Center
-                                )
+                                ShowManufacturer()
                             }
 
                             Row(
@@ -219,6 +182,50 @@ class ShoppingCart : ComponentActivity() {
                 }
             )
         }
+    }
+
+    private @Composable
+    fun ShowManufacturer() {
+        Text(
+            text = product.her,
+            style = TextStyle(
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color(0xFF2A6F62)
+            ),
+            modifier = Modifier.padding(vertical = 8.dp),
+            textAlign = TextAlign.Center
+        )
+    }
+
+    @Composable
+    fun ShowAmount() {
+        Text(text = " 100g ",
+            style = MaterialTheme.typography.bodyLarge , // Set the text style to MaterialTheme typography with h6 style
+            fontWeight = FontWeight.Bold, // Set the text weight to bold
+            fontSize = 20.sp)
+    }
+
+    @Composable
+    fun ShowProductName() {
+        Text(
+            text = product.name,
+            style = TextStyle(
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color(0xFF2A6F62)
+            ),
+            modifier = Modifier.padding(vertical = 8.dp),
+            textAlign = TextAlign.Center
+        )
+    }
+
+    @Composable
+    fun ShowProductPrice() {
+        Text(text = product.pr.toString() + " €/kg",
+            style = MaterialTheme.typography.bodyLarge , // Set the text style to MaterialTheme typography with h6 style
+            fontWeight = FontWeight.Bold, // Set the text weight to bold
+            fontSize = 20.sp)
     }
 
 
