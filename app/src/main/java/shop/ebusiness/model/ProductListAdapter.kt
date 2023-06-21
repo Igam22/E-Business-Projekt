@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListAdapter
 import android.widget.TextView
-import com.hka.bloodrecommendationapp.Model.ProductList
+import shop.ebusiness.model.ProductList
 import shop.ebusiness.R
 
 class ProductListAdapter (context: Context, ListOfProducts: List<ProductList>)  : BaseAdapter(),

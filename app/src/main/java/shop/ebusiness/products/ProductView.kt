@@ -48,7 +48,7 @@ fun ProductView() {
 fun CreateProductImage() {
     Surface(
         modifier = Modifier
-            .size(width = 250.dp, height = 130.dp)
+            .size(width = 250.dp, height = 200.dp) // Increase the height value to make the image larger
             .padding(4.dp),
         shape = RoundedCornerShape(corner = CornerSize(10.dp)),
         border = BorderStroke(0.5.dp, Color.Black),
@@ -62,5 +62,6 @@ fun CreateProductImage() {
         )
     }
 }
+
     // Restlicher Code der Funktion
 

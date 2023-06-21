@@ -2,7 +2,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import com.hka.bloodrecommendationapp.Model.ProductList
+import shop.ebusiness.model.ProductList
 import shop.ebusiness.R
 
 class SearchActivity : AppCompatActivity() {

@@ -6,6 +6,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -30,14 +32,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.hka.bloodrecommendationapp.Model.ProductList
+import shop.ebusiness.model.ProductList
 import shop.ebusiness.ui.theme.*
 import shop.ebusiness.util.*
 
@@ -142,7 +143,7 @@ class ShoppingCart : ComponentActivity() {
                                 Column(
                                     modifier = Modifier
                                         .weight(2f)
-                                        .height(20.dp),
+                                        .height(40.dp),
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
                                     // Column 1
@@ -168,7 +169,7 @@ class ShoppingCart : ComponentActivity() {
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
                                     // Column 2
-                                    Text(text = "Spalte 2",
+                                    Text(text = " 100g ",
                                         style = MaterialTheme.typography.bodyLarge , // Set the text style to MaterialTheme typography with h6 style
                                         fontWeight = FontWeight.Bold, // Set the text weight to bold
                                         fontSize = 20.sp)
@@ -188,10 +189,26 @@ class ShoppingCart : ComponentActivity() {
 
                             // Produktbeschreibung
                             Row(
+                                modifier = Modifier.weight(0.5f).height(4.dp),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    text = product.her,
+                                    style = TextStyle(
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 20.sp,
+                                        color = Color(0xFF2A6F62)
+                                    ),
+                                    modifier = Modifier.padding(vertical = 8.dp),
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+
+                            Row(
                                 modifier = Modifier.weight(1f),
                                 horizontalArrangement = Arrangement.Center
                             ) {
-                                DisplaySize()
+                                DisplayDescription(product)
                             }
 
                             Spacer(modifier = Modifier.weight(1f))
@@ -208,7 +225,7 @@ class ShoppingCart : ComponentActivity() {
         Text(text = "Produkt Details")
     }
 
-    val product = ProductList().apply { name = "Erdbeeren"; her = "Hersteller"; pr = 4.99;  }
+    val product = ProductList().apply { name = "Erdbeeren"; her = "Hersteller"; pr = 4.99; war = "Erntefrische Erdebberen in demeter Bio-Qualität. Fruchtig, Süß und saftig." }
 
 
 
@@ -222,10 +239,19 @@ class ShoppingCart : ComponentActivity() {
 
 
     @Composable
-    fun DisplaySize() {
-        val screenWidthDp = LocalConfiguration.current.screenWidthDp
-        val screenHeightDp = LocalConfiguration.current.screenHeightDp
-
-        Text("Screen Width: $screenWidthDp dp")
-        Text("Screen Height: $screenHeightDp dp")
-    }}
+    fun DisplayDescription(product: ProductList) {
+        Surface(
+            color = Color.White, // Set the background color of the box to white
+            shape = RoundedCornerShape(8.dp), // Set the shape of the box (rounded corners)
+            border = BorderStroke(1.dp, Color(0xFF348077)), // Set the border color and width
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp) // Set the padding
+        ) {
+            Text(
+                text = product.war,
+                style = MaterialTheme.typography.bodyLarge, // Apply the desired Material font style
+                modifier = Modifier.padding(8.dp) // Set the padding within the box
+            )
+        }
+    }
+        
+    }

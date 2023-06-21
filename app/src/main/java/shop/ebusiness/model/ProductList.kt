@@ -1,4 +1,4 @@
-package com.hka.bloodrecommendationapp.Model
+package shop.ebusiness.model
 
 class ProductList {
 
