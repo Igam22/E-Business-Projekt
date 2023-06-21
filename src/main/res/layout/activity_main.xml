@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/editTextText11"
+        android:layout_width="138dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Cholesteringehalt:"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText13"
+        tools:layout_editor_absoluteX="23dp" />
+
+    <TextView
+        android:id="@+id/editTextText13"
+        android:layout_width="138dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Eisengehalt:"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/et_datum"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="65dp"
+        android:text="Blutwerteingabe"
+        android:textSize="25sp"
+        android:textColor="#21005D"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_datum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:ems="10"
+        android:hint="@string/Datum"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/et_eisengehalt"
+        android:layout_width="158dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/Eisengehalt"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/editTextText12"
+        app:layout_constraintTop_toBottomOf="@+id/et_datum" />
+
+    <EditText
+        android:id="@+id/et_cholesteringehalt"
+        android:layout_width="158dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/Cholesteringehalt"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/editTextText14"
+        app:layout_constraintTop_toBottomOf="@+id/et_eisengehalt" />
+
+    <EditText
+        android:id="@+id/et_blutzucker"
+        android:layout_width="158dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/Blutzucker"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/editTextText10"
+        app:layout_constraintTop_toBottomOf="@+id/et_cholesteringehalt" />
+
+    <EditText
+        android:id="@+id/et_triglyceride"
+        android:layout_width="158dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/Triglyceride"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/editTextText8"
+        app:layout_constraintTop_toBottomOf="@+id/et_blutzucker" />
+
+    <EditText
+        android:id="@+id/et_blutdruck"
+        android:layout_width="158dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/Blutdruck"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/editTextText6"
+        app:layout_constraintTop_toBottomOf="@+id/et_triglyceride" />
+
+    <EditText
+        android:id="@+id/et_vitamind"
+        android:layout_width="158dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/VitaminD"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/editTextText4"
+        app:layout_constraintTop_toBottomOf="@+id/et_blutdruck" />
+
+    <EditText
+        android:id="@+id/et_vitaminb12"
+        android:layout_width="158dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:ems="10"
+        android:hint="@string/VitaminB12"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/editTextText3"
+        app:layout_constraintTop_toBottomOf="@+id/et_vitamind"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btn_add1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_square_background"
+        android:backgroundTint="#3D8E85"
+        android:foregroundTint="#000000"
+        android:text="Add"
+        android:textColorHighlight="#4FC0B3"
+        android:textColorLink="#4FC0B3"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_vitaminb12" />
+
+    <TextView
+        android:id="@+id/editTextText"
+        android:layout_width="138dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Vitamin B12:"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText2"
+        tools:layout_editor_absoluteX="20dp"
+        />
+
+    <TextView
+        android:id="@+id/editTextText2"
+        android:layout_width="138dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Vitamin D:"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText5"
+        tools:layout_editor_absoluteX="23dp" />
+
+    <TextView
+        android:id="@+id/editTextText7"
+        android:layout_width="138dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Triglyceride:"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText9"
+        tools:layout_editor_absoluteX="23dp" />
+
+    <TextView
+        android:id="@+id/editTextText9"
+        android:layout_width="138dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Blutzucker:"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText11"
+        tools:layout_editor_absoluteX="23dp" />
+
+    <TextView
+        android:id="@+id/editTextText5"
+        android:layout_width="138dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Blutdruck:"
+        android:gravity="center_vertical"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText7"
+        tools:layout_editor_absoluteX="23dp" />
+
+    <TextView
+        android:id="@+id/editTextText3"
+        android:layout_width="53dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="pg/ml"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText4" />
+
+    <TextView
+        android:id="@+id/editTextText4"
+        android:layout_width="53dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:gravity="center_vertical"
+        android:text="pg/ml"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText6" />
+
+    <TextView
+        android:id="@+id/editTextText6"
+        android:layout_width="53dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="mmHg"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText8" />
+
+    <TextView
+        android:id="@+id/editTextText8"
+        android:layout_width="53dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="mg/dl"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText10" />
+
+    <TextView
+        android:id="@+id/editTextText10"
+        android:layout_width="53dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="mg/dl"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText14" />
+
+    <TextView
+        android:id="@+id/editTextText12"
+        android:layout_width="53dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:gravity="center_vertical"
+        android:text="µg/dl"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_datum" />
+
+    <TextView
+        android:id="@+id/editTextText14"
+        android:layout_width="53dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="mg/dl"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextText12" />
+
+    <Button
+        android:id="@+id/btn_viewAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:text="View All"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_vitaminb12" />
+
+    <ListView
+        android:id="@+id/lv_customerList"
+        android:layout_width="271dp"
+        android:layout_height="155dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_viewAll"
+        app:layout_constraintVertical_bias="0.496" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Gib hier deine persönlichen Blutwerte ein"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#4fc0b3"
+        android:text="Add"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_vitaminb12" />/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

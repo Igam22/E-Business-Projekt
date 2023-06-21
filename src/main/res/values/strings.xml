@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Blutwert</string>
+    <string name="Datum">Das Datum</string>
+    <string name="Eisengehalt">Der Eisengehalt</string>
+    <string name="Cholesteringehalt">Der Cholesteringehalt</string>
+    <string name="Blutzucker">Der Blutzucker</string>
+    <string name="Triglyceride">Die Triglyceride</string>
+    <string name="Blutdruck">Der Blutdruck</string>
+    <string name="VitaminD">Das Vitamin D</string>
+    <string name="VitaminB12">Das Vitamin B12</string>
+</resources>
