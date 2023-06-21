@@ -184,7 +184,7 @@ class ShoppingCart : ComponentActivity() {
         }
     }
 
-    private @Composable
+    @Composable
     fun ShowManufacturer() {
         Text(
             text = product.her,
