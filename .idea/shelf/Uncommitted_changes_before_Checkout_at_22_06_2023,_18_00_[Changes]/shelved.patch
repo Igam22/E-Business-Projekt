@@ -1,0 +1,1459 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	
++++ b/app/src/main/AndroidManifest.xml	
+@@ -7,17 +7,22 @@
+         android:dataExtractionRules="@xml/data_extraction_rules"
+         android:fullBackupContent="@xml/backup_rules"
+         android:icon="@mipmap/ic_launcher"
+-        android:label="@string/app_name"
++        android:label="Ebusiness"
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+         android:theme="@style/Theme.Ebusiness"
+         tools:targetApi="31">
+ 
+         <activity
+-            android:name=".ShoppingCart"
+-            android:exported="false"
+-            android:label="@string/title_activity_shopping_cart"
+-            android:theme="@style/Theme.Ebusiness" />
++            android:name=".DetailsActivity"
++            android:exported="true"
++            android:label="DetailsActivity"
++            android:theme="@style/Theme.Ebusiness" >
++            <intent-filter>
++                <action android:name="android.intent.action.MAIN" />
++                <category android:name="android.intent.category.LAUNCHER" />
++            </intent-filter>
++        </activity>
+ 
+         <activity
+             android:name=".SearchActivity"
+@@ -30,18 +35,18 @@
+             android:exported="true"
+             android:label="@string/app_name"
+             android:theme="@style/Theme.Ebusiness">
++        </activity>
++
++        <activity
++            android:name=".HomeActivity"
++            android:exported="true"
++            android:label="@string/title_activity_home"
++            android:theme="@style/Theme.RecommendationBloodBasedApp">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>
+-
+-        <activity
+-            android:name=".activities.HomeActivity"
+-            android:exported="true"
+-            android:label="@string/app_name"
+-            android:theme="@style/Theme.RecommendationBloodBasedApp">
+-        </activity>
+ 
+     </application>
+ 
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	
++++ b/app/src/main/res/values/strings.xml	
+@@ -14,4 +14,14 @@
+     <string name="title_activity_search">SearchActivity</string>
+     <string name="productnameplaceholder">ProductName</string>
+     <string name="productpriceplaceholder">ProductPrice</string>
++    <string name="productdescriptionplaceholder">ProductDescription</string>
++    <string name="title_activity_home">Home Activity</string>
++    <string name="inhaltsbereich_f_r_scrollbare_elemente">ScrollbarElement</string>
++    <string name="alle">alle\n</string>
++    <string name="fr_chte">Früchte</string>
++    <string name="h_lsenfr_chte">Hülsenfrüchte</string>
++    <string name="preis_aufsteigend_sortieren">Preis aufsteigend sortieren</string>
++    <string name="preis_absteigend_sortieren">Preis absteigend sortieren</string>
++    <string name="sortieren">sortieren</string>
++    <string name="zur_ck">Zurück</string>
+ </resources>
+Index: app/src/main/res/drawable/baseline_arrow_back_24.xml
+===================================================================
+diff --git a/app/src/main/res/drawable/baseline_arrow_back_24.xml b/app/src/main/res/drawable/baseline_arrow_back_24.xml
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/res/drawable/baseline_arrow_back_24.xml	
+@@ -0,0 +1,5 @@
++<vector android:autoMirrored="true" android:height="24dp"
++    android:tint="#389D91" android:viewportHeight="24"
++    android:viewportWidth="24" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M20,11H7.83l5.59,-5.59L12,4l-8,8 8,8 1.41,-1.41L7.83,13H20v-2z"/>
++</vector>
+Index: app/src/main/res/drawable/baseline_sort_24.xml
+===================================================================
+diff --git a/app/src/main/res/drawable/baseline_sort_24.xml b/app/src/main/res/drawable/baseline_sort_24.xml
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/res/drawable/baseline_sort_24.xml	
+@@ -0,0 +1,5 @@
++<vector android:autoMirrored="true" android:height="24dp"
++    android:tint="#389D91" android:viewportHeight="24"
++    android:viewportWidth="24" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
++    <path android:fillColor="@android:color/white" android:pathData="M3,18h6v-2L3,16v2zM3,6v2h18L21,6L3,6zM3,13h12v-2L3,11v2z"/>
++</vector>
+Index: app/src/main/res/layout/product_home_screen_item.xml
+===================================================================
+diff --git a/app/src/main/res/layout/product_home_screen_item.xml b/app/src/main/res/layout/product_home_screen_item.xml
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/res/layout/product_home_screen_item.xml	
+@@ -0,0 +1,42 @@
++<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="48dp"
++    android:layout_height="48dp"
++    android:orientation="vertical"
++    android:background="#DFECEA"
++    android:padding="16dp"
++    android:layout_marginBottom="8dp">
++
++    <TextView
++        android:id="@+id/textProduktname"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Produktname"
++        android:textSize="13sp"
++        android:textColor="#000000" />
++
++    <TextView
++        android:id="@+id/textProduktpreis"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Produktpreis"
++        android:textSize="12sp"
++        android:textColor="#000000" />
++
++    <TextView
++        android:id="@+id/textProduktbeschreibung"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Produktbeschreibung"
++        android:textSize="12sp"
++        android:textColor="#000000" />
++
++    <TextView
++        android:id="@+id/textHersteller"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:text="Hersteller"
++        android:textSize="12sp"
++        android:textColor="#000000" />
++
++</LinearLayout>
++
+Index: app/src/main/java/shop/ebusiness/model/HomeProductListAdapter.kt
+===================================================================
+diff --git a/app/src/main/java/shop/ebusiness/model/HomeProductListAdapter.kt b/app/src/main/java/shop/ebusiness/model/HomeProductListAdapter.kt
+new file mode 100644
+--- /dev/null	
++++ b/app/src/main/java/shop/ebusiness/model/HomeProductListAdapter.kt	
+@@ -0,0 +1,42 @@
++package shop.ebusiness.model
++
++import android.annotation.SuppressLint
++import android.content.Context
++import android.view.LayoutInflater
++import android.widget.LinearLayout
++import android.widget.TextView
++import shop.ebusiness.R
++
++/**
++ * Diese Klasse verknüpft die Datenbank mit den Layouts.
++ * @param context der Kontext der Anwendung
++ * @param productList die Liste der Produkte
++ */
++class HomeProductListAdapter(private val context: Context, private val productList: List<ProductList>) {
++
++    /**
++     * Erstellt die Ansicht für jedes Produkt in der Liste.
++     * @param linearLayout das Layout, in dem die Ansichten erstellt werden sollen
++     */
++    @SuppressLint("SetTextI18n")
++    fun createProductViews(linearLayout: LinearLayout) {
++        for (product in productList) {
++            val productBox = LayoutInflater.from(context).inflate(R.layout.product_home_screen_item, null)
++
++            // TextViews im LinearLayout finden und in Variablen speichern
++            val textProductName = productBox.findViewById<TextView>(R.id.textProduktname)
++            val textPrice = productBox.findViewById<TextView>(R.id.textProduktpreis)
++            val textBeschreibung = productBox.findViewById<TextView>(R.id.textProduktbeschreibung)
++            val textManufacturer = productBox.findViewById<TextView>(R.id.textHersteller)
++
++            //Verknüpfung der Layout-Attribute mit den Attributen aus der datenbank
++            textProductName.text = product.name
++            textPrice.text = "${product.pr} ${product.einh_preis}"
++            textBeschreibung.text = product.pos1
++            textManufacturer.text = product.her
++
++            linearLayout.addView(productBox)
++        }
++    }
++}
++
+Index: app/src/main/res/layout/home_activity.xml
+===================================================================
+diff --git a/app/src/main/res/layout/home_activity.xml b/app/src/main/res/layout/home_activity.xml
+--- a/app/src/main/res/layout/home_activity.xml	
++++ b/app/src/main/res/layout/home_activity.xml	
+@@ -88,34 +88,72 @@
+         android:clickable="true"
+         android:focusable="true"
+         android:text="@string/letzte_bestellungen" />
+-
+-    <TextView
+-        android:id="@+id/Empfehlungen"
+-        android:layout_width="302dp"
+-        android:layout_height="48dp"
+-        android:layout_alignParentStart="true"
+-        android:layout_alignParentTop="true"
+-        android:layout_alignParentEnd="true"
+-        android:layout_marginStart="30dp"
+-        android:layout_marginTop="470dp"
+-        android:layout_marginEnd="80dp"
+-        android:clickable="true"
+-        android:focusable="true"
+-        android:text="@string/deine_heutigen_empfehlungen"
+-        android:textSize="18sp"
+-        android:textStyle="bold" />
++    <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"
++        android:orientation="horizontal"
++        android:layout_below="@id/Letzte_Bestellungen">
++        <TextView
++            android:id="@+id/textAlle"
++            android:layout_width="111dp"
++            android:layout_height="48dp"
++            android:layout_marginStart="24dp"
++            android:layout_marginTop="16dp"
++            android:clickable="true"
++            android:focusable="true"
++            android:text="@string/alle"
++            android:textColor="#000000" />
++
++        <TextView
++            android:id="@+id/textFruechte"
++            android:layout_width="111dp"
++            android:layout_height="48dp"
++            android:layout_marginStart="24dp"
++            android:layout_marginTop="16dp"
++            android:clickable="true"
++            android:focusable="true"
++            android:text="@string/fr_chte"
++            android:textColor="#000000" />
+ 
+-    <CheckBox
+-        android:id="@+id/Einkaufswagen"
+-        android:layout_width="wrap_content"
+-        android:layout_height="48dp"
++        <TextView
++            android:id="@+id/textHuelsenfruechte"
++            android:layout_width="111dp"
++            android:layout_height="48dp"
++            android:layout_marginStart="16dp"
++            android:layout_marginTop="16dp"
++            android:clickable="true"
++            android:focusable="true"
++            android:text="@string/h_lsenfr_chte"
++            android:textColor="#000000" />
++
++
++
++    </LinearLayout>
++
++    <HorizontalScrollView
++        android:id="@+id/scrollView"
++        android:layout_width="364dp"
++        android:layout_height="299dp"
++        android:layout_below="@id/Letzte_Bestellungen"
+         android:layout_alignParentStart="true"
+         android:layout_alignParentEnd="true"
+-        android:layout_alignParentBottom="true"
+-        android:layout_marginStart="29dp"
+-        android:layout_marginEnd="1dp"
+-        android:layout_marginBottom="166dp"
+-        android:text="@string/alle_empfehlungen_in_deinen_einkaufswagen_bernehmen" />
++        android:layout_centerHorizontal="true"
++        android:layout_marginStart="24dp"
++        android:layout_marginTop="71dp"
++        android:layout_marginEnd="23dp"
++        android:contentDescription="@string/inhaltsbereich_f_r_scrollbare_elemente">
++
++        <LinearLayout
++            android:id="@+id/linearLayout"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:orientation="horizontal">
++
++            <!-- Hier kannst du deine horizontal scrollbaren Inhalte einfügen -->
++
++        </LinearLayout>
++
++    </HorizontalScrollView>
+ 
+ 
+ </RelativeLayout>
+Index: app/src/main/res/layout/search_activity.xml
+===================================================================
+diff --git a/app/src/main/res/layout/search_activity.xml b/app/src/main/res/layout/search_activity.xml
+--- a/app/src/main/res/layout/search_activity.xml	
++++ b/app/src/main/res/layout/search_activity.xml	
+@@ -4,6 +4,60 @@
+     android:layout_height="match_parent"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools">
++
++    <ImageButton
++        android:id="@+id/back_button"
++        android:layout_width="48dp"
++        android:layout_height="48dp"
++        android:layout_alignParentStart="true"
++        android:layout_alignParentTop="true"
++        android:layout_marginStart="23dp"
++        android:layout_marginTop="152dp"
++        android:background="@android:color/transparent"
++        android:contentDescription="@string/zur_ck"
++        android:src="@drawable/baseline_arrow_back_24" />
++
++    <ImageButton
++        android:id="@+id/sort_button"
++        android:layout_width="65dp"
++        android:layout_height="48dp"
++        android:layout_below="@+id/search_bar"
++        android:layout_alignParentEnd="true"
++        android:layout_marginTop="22dp"
++        android:layout_marginEnd="44dp"
++        android:background="@android:color/transparent"
++        android:contentDescription="@string/sortieren"
++        android:src="@drawable/baseline_sort_24"
++        />
++
++    <LinearLayout
++        android:id="@+id/sort_options"
++        android:layout_width="151dp"
++        android:layout_height="79dp"
++        android:layout_marginTop="130dp"
++        android:layout_marginEnd="5dp"
++        android:layout_toStartOf="@+id/sort_button"
++        android:orientation="vertical"
++        android:visibility="gone"
++
++        >
++
++        <TextView
++            android:id="@+id/sort_ascending"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:onClick="onSortAscendingClick"
++            android:padding="8dp"
++            android:text="@string/preis_aufsteigend_sortieren" />
++
++        <TextView
++            android:id="@+id/sort_descending"
++            android:layout_width="match_parent"
++            android:layout_height="48dp"
++            android:onClick="onSortDescendingClick"
++            android:padding="8dp"
++            android:text="@string/preis_absteigend_sortieren" />
++    </LinearLayout>
+     <SearchView
+         android:id="@+id/search_bar"
+         android:layout_width="360dp"
+@@ -12,23 +66,26 @@
+         android:layout_alignParentTop="true"
+         android:layout_centerHorizontal="true"
+         android:layout_marginStart="22dp"
+-        android:layout_marginTop="100dp"
++        android:layout_marginTop="81dp"
+         android:background="#DFECEA"
+         android:iconifiedByDefault="false"
+         android:queryHint="Suche nach deinen Lebensmitteln..."
+         android:radius="120dp">
+-
+     </SearchView>
+ 
++
+     <ListView
+         android:id="@+id/listView"
+-        android:layout_width="340dp"
+-        android:layout_height="450dp"
++        android:layout_width="354dp"
++        android:layout_height="437dp"
++        android:layout_below="@+id/search_bar"
+         android:layout_alignParentStart="true"
+         android:layout_alignParentBottom="true"
+         android:layout_centerHorizontal="true"
+-        android:layout_marginStart="31dp"
+-        android:layout_marginBottom="51dp"
+-        tools:listitem="@layout/product_item"
+-        />
++        android:layout_marginStart="19dp"
++        android:layout_marginTop="108dp"
++        android:layout_marginBottom="57dp"
++        tools:listitem="@layout/product_item" />
++
++
+ </RelativeLayout>
+Index: app/src/main/java/shop/ebusiness/ProductDetails.kt
+===================================================================
+diff --git a/app/src/main/java/shop/ebusiness/ProductDetails.kt b/app/src/main/java/shop/ebusiness/ProductDetails.kt
+--- a/app/src/main/java/shop/ebusiness/ProductDetails.kt	
++++ b/app/src/main/java/shop/ebusiness/ProductDetails.kt	
+@@ -36,24 +36,41 @@
+ import androidx.compose.ui.tooling.preview.Preview
+ import androidx.compose.ui.unit.dp
+ import androidx.compose.ui.unit.sp
++import shop.ebusiness.database.DatabaseHelper
+ import shop.ebusiness.database.DbManager
+ import shop.ebusiness.model.ProductList
+ import shop.ebusiness.ui.theme.*
+ import shop.ebusiness.util.*
+ 
+-class ShoppingCart : ComponentActivity() {
++class DetailsActivity : ComponentActivity() {
++    internal var helper = DatabaseHelper(this)
++    private lateinit var allProducts: ArrayList<ProductList>
+     private lateinit var dbManager: DbManager
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+ 
++        dbManager = DbManager(this)
++        dbManager.open()
++
++        allProducts = helper.getAllProducts()
++
++
++
++
+ 
+         setContent {
+-            ProductDetails()
++            EbusinessTheme {
++                Surface(
++                    color = MaterialTheme.colorScheme.background
++                ) {
++                    ProductDetails()
++                }
++            }
+         }
+     }
+ 
+-    fun performDatabaseOperations(context: Context, keyword: String): List<ProductList?>? {
++ /*   fun performDatabaseOperations(context: Context, keyword: String): List<ProductList?>? {
+         val dbManager = DbManager(context)
+         dbManager.open()
+ 
+@@ -69,7 +86,7 @@
+         // Gib das Ergebnis zurück
+         return searchResults
+     }
+-
++*/
+ 
+ 
+ 
+Index: app/src/main/java/shop/ebusiness/HomeActivity.kt
+===================================================================
+diff --git a/app/src/main/java/shop/ebusiness/HomeActivity.kt b/app/src/main/java/shop/ebusiness/HomeActivity.kt
+--- a/app/src/main/java/shop/ebusiness/HomeActivity.kt	
++++ b/app/src/main/java/shop/ebusiness/HomeActivity.kt	
+@@ -1,25 +1,109 @@
++package shop.ebusiness
++
+ import android.content.Intent
+ import android.os.Bundle
++import android.widget.CheckBox
++import android.widget.LinearLayout
++import android.widget.SearchView
++import android.widget.TextView
+ import androidx.activity.ComponentActivity
+-import androidx.appcompat.widget.SearchView
+-import shop.ebusiness.R
+ import shop.ebusiness.database.DbManager
++import shop.ebusiness.model.HomeProductListAdapter
++import shop.ebusiness.model.ProductList
++
++
++
+ 
+ class HomeActivity : ComponentActivity() {
+     private lateinit var dbManager: DbManager
++    private lateinit var allProducts: ArrayList<ProductList>
++    private lateinit var kaloriearmCheckbox: CheckBox
++    private lateinit var vegetarischCheckbox: CheckBox
++    private lateinit var veganCheckbox: CheckBox
++    private lateinit var fettarmCheckbox: CheckBox
++    private lateinit var proteinreichCheckbox: CheckBox
++    private lateinit var linearLayout: LinearLayout
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.home_activity)
++
+         dbManager = DbManager(this)
+         dbManager.open()
++        allProducts = dbManager.getAllProducts()
++
++        //Checkboxen Initialisierung
++        kaloriearmCheckbox = findViewById(R.id.Kaloriearm)
++        vegetarischCheckbox = findViewById(R.id.Vegetarisch)
++        veganCheckbox = findViewById(R.id.Vegan)
++        fettarmCheckbox = findViewById(R.id.Fettarm)
++        proteinreichCheckbox = findViewById(R.id.Proteinreich)
++
++        //Initialisierung des Linearen Layouts für die Produktdarstellung
++        linearLayout = findViewById(R.id.linearLayout)
++
++        //Wenn auf den TextView Früchte geklickt wird, sollen alle Produkte der Kategorie Früchte ausgegeben werden
++        val textFruechte: TextView = findViewById(R.id.textFruechte)
++        textFruechte.setOnClickListener {
++            displayFruits()
++        }
++//Wenn auf den TextView Hülsenfrüchte geklickt wird, sollen alle Produkte der Kategorie Hülsenfrüchte ausgegeben werden
++        val textHuelsenfruechte: TextView = findViewById(R.id.textHuelsenfruechte)
++        textHuelsenfruechte.setOnClickListener {
++            displayPulses()
++        }
++
++        //Wenn auf den TextView Alle geklickt wird, sollen alle Produkte der Kategorie Alle ausgegeben werden
++        val textAlle: TextView = findViewById(R.id.textAlle)
++        textAlle.setOnClickListener {
++            displayAllProducts()
++        }
++
++        //Verknüfung der Funktion applyFilter mit den Checkboxen
++        kaloriearmCheckbox.setOnCheckedChangeListener { _, _ ->
++            applyFilter()
++        }
++
++        vegetarischCheckbox.setOnCheckedChangeListener { _, _ ->
++            applyFilter()
++        }
++
++        veganCheckbox.setOnCheckedChangeListener { _, _ ->
++            applyFilter()
++        }
++
++        fettarmCheckbox.setOnCheckedChangeListener { _, _ ->
++            applyFilter()
++        }
++
++        proteinreichCheckbox.setOnCheckedChangeListener { _, _ ->
++            applyFilter()
++        }
++
++        //Adapter Instanz für die Erstellung des Objekt-Views
++        val adapter = HomeProductListAdapter(this, allProducts)
++        adapter.createProductViews(linearLayout)
+ 
+         val searchBar: SearchView = findViewById(R.id.search_bar1)
++
++        /**
++         * Methode wird aufgerufen, sobald ein User eine Suchanfrage eingibt oder ändert
++         * @param object
++         */
+         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
++            /**
++             * Methode wird aufgerufen, sobald ein User eine Suchanfrage eingibt
++             * @param query
++             * @return false
++             */
+             override fun onQueryTextSubmit(query: String?): Boolean {
+                 return false
+             }
+ 
++            /**
++             * Methode wird aufgerufen, sobald ein User eine Suchanfrage ändert, Activity wird zu SearchActivity gewechselt
++             * @param query
++             */
+             override fun onQueryTextChange(searchInput: String?): Boolean {
+                 val intent = Intent(this@HomeActivity, SearchActivity::class.java)
+                 intent.putExtra("searchQuery", searchInput)
+@@ -28,4 +112,66 @@
+             }
+         })
+     }
++
++    /**
++     * Zeigt alle Früchte der Datenbank an
++     */
++    private fun displayFruits() {
++        linearLayout.removeAllViews()
++
++        val fruits = dbManager.getAllFruits()
++        val adapter = HomeProductListAdapter(this, fruits)
++        adapter.createProductViews(linearLayout)
++    }
++    /**
++     * Zeigt alle Hülsenfrüchte der Datenbank an
++     */
++    private fun displayPulses() {
++        linearLayout.removeAllViews()
++
++        val pulses = dbManager.getAllPulse()
++        val adapter = HomeProductListAdapter(this, pulses)
++        adapter.createProductViews(linearLayout)
++    }
++
++    /**
++     * Zeigt alle Produkte der Datenbank an
++     */
++    private fun displayAllProducts() {
++        linearLayout.removeAllViews()
++
++        val adapter = HomeProductListAdapter(this, allProducts)
++        adapter.createProductViews(linearLayout)
++    }
++
++    /**
++     * Wendet die Checkboxfilter an der Produktmenge an
++     * Checkbox filtert mit inklusivem Oder
++     */
++    private fun applyFilter() {
++        linearLayout.removeAllViews()
++
++        val filteredProducts = mutableListOf<ProductList>()
++
++        val isCheckedKaloriearm = kaloriearmCheckbox.isChecked
++        val isCheckedVegetarisch = vegetarischCheckbox.isChecked
++        val isCheckedVegan = veganCheckbox.isChecked
++        val isCheckedFettarm = fettarmCheckbox.isChecked
++        val isCheckedProteinreich = proteinreichCheckbox.isChecked
++
++        for (produkt in allProducts) {
++            if ((isCheckedKaloriearm && produkt.kal) ||
++                (isCheckedVegetarisch && produkt.vege) ||
++                (isCheckedVegan && produkt.veg) ||
++                (isCheckedFettarm && produkt.fet) ||
++                (isCheckedProteinreich && produkt.prot)
++            ) {
++                filteredProducts.add(produkt)
++            }
++        }
++
++        val adapter = HomeProductListAdapter(this, filteredProducts)
++        adapter.createProductViews(linearLayout)
++
++    }
+ }
+Index: app/src/main/java/shop/ebusiness/MainActivity.kt
+===================================================================
+diff --git a/app/src/main/java/shop/ebusiness/MainActivity.kt b/app/src/main/java/shop/ebusiness/MainActivity.kt
+--- a/app/src/main/java/shop/ebusiness/MainActivity.kt	
++++ b/app/src/main/java/shop/ebusiness/MainActivity.kt	
+@@ -2,6 +2,7 @@
+ 
+ import CreateProductImage
+ import EbusinessScheme
++import ProductView
+ import android.os.Bundle
+ import androidx.activity.ComponentActivity
+ import androidx.activity.compose.setContent
+@@ -41,7 +42,7 @@
+                 Surface(
+                     color = MaterialTheme.colorScheme.background
+                 ) {
+-                    CreateProductView()
++                    ProductView()
+                 }
+             }
+         }
+Index: app/src/main/java/shop/ebusiness/model/ProductList.kt
+===================================================================
+diff --git a/app/src/main/java/shop/ebusiness/model/ProductList.kt b/app/src/main/java/shop/ebusiness/model/ProductList.kt
+--- a/app/src/main/java/shop/ebusiness/model/ProductList.kt	
++++ b/app/src/main/java/shop/ebusiness/model/ProductList.kt	
+@@ -54,83 +54,81 @@
+  * @param einh_preis Die Einheit des Preises des Lebensmittels
+  */
+ class ProductList(var ID:Int,
+-        var name:String,
+-        var cat:String,
+-        var her:String,
+-        var war:String,
+-        var bes:String,
+-        var pos1:String,
+-        var kalo:Double,
+-        var einh:String,
+-        var anz:Int,
+-        var einh_anz:String,
+-        var fettanteil :Double,
+-        var einh_fett:String,
+-        var fol:Double,
+-        var einh_fol:String,
+-        var vitc:Double,
+-        var einh_vitC:String,
+-        var vege:Boolean,
+-        var veg:Boolean,
+-        var prot:Boolean,
+-        var fet:Boolean,
+-        var kal:Boolean,
+-        var pr:Double,
+-        var einh_preis:String) {
++                  var name:String,
++                  var cat:String,
++                  var her:String,
++                  var war:String,
++                  var bes:String,
++                  var pos1:String,
++                  var kalo:Double,
++                  var einh:String,
++                  var anz:Int,
++                  var einh_anz:String,
++                  var fettanteil :Double,
++                  var einh_fett:String,
++                  var fol:Double,
++                  var einh_fol:String,
++                  var vitc:Double,
++                  var einh_vitC:String,
++                  var vege:Boolean,
++                  var veg:Boolean,
++                  var prot:Boolean,
++                  var fet:Boolean,
++                  var kal:Boolean,
++                  var pr:Double,
++                  var einh_preis:String) {
+ 
+ 
+-            companion object{
++        constructor():this(0,"","","","","","",0.0,"",0,"",0.0,"",0.0,"",0.0,"",false,false,false,false,false,0.0,"")
++        companion object{
+ 
+-            //lateinit var dbh:DatabaseHelper
++                //lateinit var dbh:DatabaseHelper
+                 /**
+                  * Diese Funktion liest die in der Datenbank gespeicherten Lebensmittel aus .
+                  * @param cursor ein Cursor, welcher spaltenweise die Daten ausliest
+                  * @return eine Instanz der Klasse ProductList, deren im Konstruktor defiierten Variablen die in der Datenbank ausgelesenen Werte zugewiesen wurden.
+                  */
+-            fun fromCursor(cursor: Cursor): ProductList {
+-                    val ID = cursor.getInt(cursor.getColumnIndexOrThrow(ID))
+-                    val name = cursor.getString(cursor.getColumnIndexOrThrow(name))
+-                    val cat = cursor.getString(cursor.getColumnIndexOrThrow(cat))
+-                    val her = cursor.getString(cursor.getColumnIndexOrThrow(her))
+-                    val war = cursor.getString(cursor.getColumnIndexOrThrow(war))
+-                    val bes = cursor.getString(cursor.getColumnIndexOrThrow(bes))
+-                    val pos1 = cursor.getString(cursor.getColumnIndexOrThrow(pos1))
+-                    val kalo = cursor.getDouble(cursor.getColumnIndexOrThrow(kalo))
+-                    val einh = cursor.getString(cursor.getColumnIndexOrThrow(einh))
+-                    val anz = cursor.getInt(cursor.getColumnIndexOrThrow(anzahl))
+-                    val einh_anz= cursor.getString(cursor.getColumnIndexOrThrow(einh_anz))
+-                    val fettanteil= cursor.getDouble(cursor.getColumnIndexOrThrow(fettanteil))
+-                    val einh_fett= cursor.getString(cursor.getColumnIndexOrThrow(einh_fett))
+-                    val fol= cursor.getDouble(cursor.getColumnIndexOrThrow(fol))
+-                    val einh_fol= cursor.getString(cursor.getColumnIndexOrThrow(einh_fol))
+-                    val vitc= cursor.getDouble(cursor.getColumnIndexOrThrow(vitc))
+-                    val einh_vitC= cursor.getString(cursor.getColumnIndexOrThrow(einh_vitC))
+-                    val vege= intToBool(cursor.getInt(cursor.getColumnIndexOrThrow(vege)))
+-                    val veg= intToBool(cursor.getInt(cursor.getColumnIndexOrThrow(veg)))
+-                    val prot= intToBool(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.prot)))
+-                    val fet= intToBool(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.fet)))
+-                    val kal= intToBool(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.kal)))
+-                    val pr = cursor.getDouble(cursor.getColumnIndexOrThrow(pr))
+-                    val einh_preis = cursor.getString(cursor.getColumnIndexOrThrow(einh_preis))
++                fun fromCursor(cursor: Cursor): ProductList {
++                        val ID = cursor.getInt(cursor.getColumnIndexOrThrow(ID))
++                        val name = cursor.getString(cursor.getColumnIndexOrThrow(name))
++                        val cat = cursor.getString(cursor.getColumnIndexOrThrow(cat))
++                        val her = cursor.getString(cursor.getColumnIndexOrThrow(her))
++                        val war = cursor.getString(cursor.getColumnIndexOrThrow(war))
++                        val bes = cursor.getString(cursor.getColumnIndexOrThrow(bes))
++                        val pos1 = cursor.getString(cursor.getColumnIndexOrThrow(pos1))
++                        val kalo = cursor.getDouble(cursor.getColumnIndexOrThrow(kalo))
++                        val einh = cursor.getString(cursor.getColumnIndexOrThrow(einh))
++                        val anz = cursor.getInt(cursor.getColumnIndexOrThrow(anzahl))
++                        val einh_anz= cursor.getString(cursor.getColumnIndexOrThrow(einh_anz))
++                        val fettanteil= cursor.getDouble(cursor.getColumnIndexOrThrow(fettanteil))
++                        val einh_fett= cursor.getString(cursor.getColumnIndexOrThrow(einh_fett))
++                        val fol= cursor.getDouble(cursor.getColumnIndexOrThrow(fol))
++                        val einh_fol= cursor.getString(cursor.getColumnIndexOrThrow(einh_fol))
++                        val vitc= cursor.getDouble(cursor.getColumnIndexOrThrow(vitc))
++                        val einh_vitC= cursor.getString(cursor.getColumnIndexOrThrow(einh_vitC))
++                        val vege= intToBool(cursor.getInt(cursor.getColumnIndexOrThrow(vege)))
++                        val veg= intToBool(cursor.getInt(cursor.getColumnIndexOrThrow(veg)))
++                        val prot= intToBool(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.prot)))
++                        val fet= intToBool(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.fet)))
++                        val kal= intToBool(cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.kal)))
++                        val pr = cursor.getDouble(cursor.getColumnIndexOrThrow(pr))
++                        val einh_preis = cursor.getString(cursor.getColumnIndexOrThrow(einh_preis))
+ 
+ 
+ 
+ 
+-                return ProductList( ID,name, cat, her, war, bes, pos1, kalo, einh, anz, einh_anz, fettanteil, einh_fett, fol, einh_fol,vitc, einh_vitC, vege, veg, prot, fet, kal, pr, einh_preis)
++                        return ProductList( ID,name, cat, her, war, bes, pos1, kalo, einh, anz, einh_anz, fettanteil, einh_fett, fol, einh_fol,vitc, einh_vitC, vege, veg, prot, fet, kal, pr, einh_preis)
+                 }
+ 
+-                    /**
+-                     * Diese Funktion dient als Helferfunktion zur Konvertierung eines Integers zu einem Boolean
+-                     * @param value Wert einer Variable vom Int
+-                     * @return gibt den Boolean Wert des Integers zurück
+-                     */ fun intToBool(value: Int): Boolean {
+-                            return value == 1
+-                    }
+-            }
++                /**
++                 * Diese Funktion dient als Helferfunktion zur Konvertierung eines Integers zu einem Boolean
++                 * @param value Wert einer Variable vom Int
++                 * @return gibt den Boolean Wert des Integers zurück
++                 */ fun intToBool(value: Int): Boolean {
++                        return value == 1
++                }
++        }
+ 
+-        //Write a simple constructor
+-        constructor() : this(0,"","","","","","",0.0,"",0,"",0.0,"",0.0,"",0.0,"",false,false,false,false,false,0.0,"")
+-
+ }
+ 
+ 
+Index: app/src/main/java/shop/ebusiness/model/ProductListAdapter.kt
+===================================================================
+diff --git a/app/src/main/java/shop/ebusiness/model/ProductListAdapter.kt b/app/src/main/java/shop/ebusiness/model/ProductListAdapter.kt
+--- a/app/src/main/java/shop/ebusiness/model/ProductListAdapter.kt	
++++ b/app/src/main/java/shop/ebusiness/model/ProductListAdapter.kt	
+@@ -1,57 +1,79 @@
++package shop.ebusiness.model
++
++import android.annotation.SuppressLint
+ import android.content.Context
+-import android.database.DataSetObserver
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
+ import android.widget.BaseAdapter
+-import android.widget.ListAdapter
+ import android.widget.TextView
+-import shop.ebusiness.model.ProductList
+ import shop.ebusiness.R
+ 
+-class ProductListAdapter (context: Context, ListOfProducts: List<ProductList>)  : BaseAdapter(),
+-    ListAdapter {
++/**
++ * Diese Klasse ist ein Adapter, der verwendet wird, um eine Liste von Produkten in einer ListView
++ * anzuzeigen. Sie erweitert die Klasse BaseAdapter.
++ * @param context der Kontext der Anwendung
++ * @param ListOfProducts Liste von Produkten
++ */
++class ProductListAdapter (context: Context, ListOfProducts: List<ProductList>)  : BaseAdapter() {
+ 
+     private var listOfProducts: List<ProductList>
+     private val mInflator: LayoutInflater
+ 
++    //Initialisierung der Variablen
+     init {
+         this.listOfProducts = ListOfProducts
+-        this.mInflator = LayoutInflater.from(context)
++        this.mInflator = LayoutInflater.from(context) //Umwandlung von XML-Layoutdateien in ViewObjekte
+     }
+-    fun updateList(newList:ArrayList<ProductList>){
++
++    /**
++     * Überschreibung der Methode updateList aus der BaseAdapter Klasse
++     * Wenn die Methode aufgerufen wird, soll die Liste aktualisiert werden
++     * @param newList neue Produktliste
++     */
++    fun updateList(newList:List<ProductList>){
+         listOfProducts=newList
+-        notifyDataSetChanged()
+-    }
+-
+-    override fun registerDataSetObserver(p0: DataSetObserver?) {
+-        TODO("Not yet implemented")
+-    }
+ 
+-    override fun unregisterDataSetObserver(p0: DataSetObserver?) {
+-        TODO("Not yet implemented")
+     }
+-
++    /**
++     * Überschreibung der Methode getCount aus der BaseAdapter Klasse
++     * Wenn die Methode aufgerufen wird, soll die Länge der Liste ausgegeben werden
++     */
+     override fun getCount(): Int {
+         return listOfProducts.size
+     }
+ 
++    /**
++     * Überschreibung der Methode getItem aus der BaseAdapter Klasse
++     * @param position Position des Elements
++     * Wenn die Methode aufgerufen wird, soll ein Element von einer gegebenen Position ermittelt werden
++     */
+     override fun getItem(position: Int): Any {
+         return listOfProducts[position]
+     }
++    /**
++     * Überschreibung der Methode getItem aus der BaseAdapter Klasse
++     * @param position Position des Elements
++     * Wenn die Methode aufgerufen wird, soll die ID des Elements von einer gegebenen Position ermittelt werden
++     */
+ 
+     override fun getItemId(position: Int): Long {
+         return position.toLong()
+     }
+-
+-    override fun hasStableIds(): Boolean {
+-        TODO("Not yet implemented")
+-    }
++    /**
++     * Überschreibung der Methode getView aus der BaseAdapter Klasse
++     * @param position Position des Elements
++     * @param parent Übergeordnete Ansicht des Elements
++     * @param viewHolder Eine Instanz der Klasse ViewHolder.
++     * @convertView
++     * @return View Die Methode gibt eine Ansicht zurück, die das Element der Liste darstellt.
++     */
+ 
+     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+         val view: View
+         val viewHolder: ViewHolder
+ 
++        //Layout für ein einzelnes Produkt soll in den Listview eingefügt werden
+         if (convertView == null) {
+             view = mInflator.inflate(R.layout.product_item, parent, false)
+             viewHolder = ViewHolder(view)
+@@ -67,33 +89,36 @@
+         return view
+     }
+ 
+-    override fun getItemViewType(p0: Int): Int {
+-        TODO("Not yet implemented")
+-    }
+-
+-    override fun getViewTypeCount(): Int {
+-        TODO("Not yet implemented")
+-    }
+-
+-    override fun isEmpty(): Boolean {
+-        TODO("Not yet implemented")
+-    }
+-
+-    override fun areAllItemsEnabled(): Boolean {
+-        TODO("Not yet implemented")
+-    }
+-
+-    override fun isEnabled(p0: Int): Boolean {
+-        TODO("Not yet implemented")
+-    }
+ 
+     inner class ViewHolder(itemView: View) {
+         private val productName: TextView = itemView.findViewById(R.id.product_name)
+         private val productPrice: TextView = itemView.findViewById(R.id.product_price)
+ 
++        @SuppressLint("SetTextI18n")
++                /**
++                 * Methode verknüpft Produkte aus der Liste mit dem XML Layout
++                 */
+         fun bind(product: ProductList) {
+             productName.text = product.name
+-            productPrice.text = product.pr.toString()
++            productPrice.text = "${product.pr} ${product.einh_preis}"
+         }
+     }
++
++
++
++    /**
++     * Methode sortiert Produkte nach aufsteigendem Preis
++     */
++    fun sortByPriceAscending(){
++        listOfProducts=listOfProducts.sortedBy { it.pr }
++
++    }
++    /**
++     * Methode sortiert Produkte nach absteigendem Preis
++     */
++    fun sortByPriceDescending(){
++        listOfProducts=listOfProducts.sortedByDescending { it.pr }
++
++    }
++
+ }
+Index: app/src/main/java/shop/ebusiness/SearchActivity.kt
+===================================================================
+diff --git a/app/src/main/java/shop/ebusiness/SearchActivity.kt b/app/src/main/java/shop/ebusiness/SearchActivity.kt
+--- a/app/src/main/java/shop/ebusiness/SearchActivity.kt	
++++ b/app/src/main/java/shop/ebusiness/SearchActivity.kt	
+@@ -1,71 +1,137 @@
++package shop.ebusiness
++
++import android.content.Intent
++import shop.ebusiness.database.DbManager
++import shop.ebusiness.model.ProductListAdapter
+ import android.os.Bundle
++import android.view.View
++import android.widget.ImageButton
++import android.widget.LinearLayout
+ import android.widget.ListView
+-import androidx.appcompat.app.AppCompatActivity
+-import androidx.appcompat.widget.SearchView
++import android.widget.RelativeLayout
++import android.widget.SearchView
++import androidx.activity.ComponentActivity
+ import shop.ebusiness.model.ProductList
+-import shop.ebusiness.R
+-import shop.ebusiness.database.DatabaseHelper
+-import shop.ebusiness.database.DbManager
+ 
+-class SearchActivity : AppCompatActivity() {
+-    internal var helper = DatabaseHelper(this)
++class SearchActivity : ComponentActivity() {
+     private lateinit var listView: ListView
+-    private lateinit var productAdapter: ProductListAdapter
+     private lateinit var dbManager: DbManager
+     private lateinit var listAdapter: ProductListAdapter
+     private lateinit var searchView: SearchView
+     private lateinit var allProducts: ArrayList<ProductList>
++    private lateinit var currentSort: Sort
++    enum class Sort{ NONE, ASCENDING, DESCENDING }
+ 
+     override fun onCreate(savedInstanceState: Bundle?) {
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.search_activity)
++
+         dbManager = DbManager(this)
+         dbManager.open()
++        //Zurückbutton mit Activitywechsek
++        val backButton: ImageButton = findViewById(R.id.back_button)
++        backButton.setOnClickListener {
++            val intent = Intent(this, HomeActivity::class.java)
++            startActivity(intent)
++            finish()}
+ 
+         listView = findViewById(R.id.listView)
++        allProducts = dbManager.getAllProducts()
+         searchView = findViewById(R.id.search_bar)
+-
+-        allProducts = helper.getAllProducts()
+-
+         listAdapter = ProductListAdapter(this, allProducts)
+         listView.adapter = listAdapter
+ 
+-        val searchQuery = intent.getStringExtra("searchQuery")?:""
+-        val searchView = findViewById<SearchView>(R.id.search_bar)
+-        searchView.requestFocus()
+-        searchView.setQuery(searchQuery, false)
++        currentSort=Sort.ASCENDING
++        sortListByCurrentSort()
++
+ 
+-        listView = findViewById(R.id.listView)
+-        productAdapter = ProductListAdapter(this, dbManager.search(searchQuery)?.filterNotNull() ?: emptyList())
+-        listView.adapter = productAdapter
+ 
+-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
++
++        val sortButton:ImageButton =findViewById(R.id.sort_button)
++        sortButton.setOnClickListener { sortList() }
++        /**
++         * Methode wird aufgerufen, sobald ein User eine Suchanfrage eingibt oder ändert
++         * @param object
++         */
++        searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
++            /**
++             * Methode wird aufgerufen, sobald ein User eine Suchanfrage eingibt
++             * @param query
++             */
+             override fun onQueryTextSubmit(query: String?): Boolean {
+                 return false
+             }
+-
++            /**
++             * Methode wird aufgerufen, sobald ein User eine Suchanfrage ändert
++             * @param newText neuer Eingabetext
++             * @return nach dem Keyword gefilterte Produktliste
++             */
+             override fun onQueryTextChange(newText: String?): Boolean {
+-                val keyword = newText.orEmpty().trim()
+-                val filteredProducts = if (keyword.isEmpty()) {
++                val searchResults= if(newText.isNullOrBlank()){
+                     allProducts
+-                } else {
+-                    searchProducts(keyword)
++                }else {
++                    dbManager.search(newText)?.filterNotNull() ?: emptyList()
+                 }
+-                listAdapter.updateList(filteredProducts)
++                listAdapter.updateList(searchResults)
+                 return true
+             }
+         })
++
++
++        //Übernimmt suchquery aus der HomeActivity
++        val searchQuery = intent.getStringExtra("searchQuery")?:""
++        searchView.requestFocus()
++        searchView.setQuery(searchQuery, false)
++        val searchResults=dbManager.search(searchQuery)?.filterNotNull() ?: emptyList()
++        listAdapter.updateList(searchResults)
++
++
+     }
++    /**
++     * Methode wird aufgerufen, sobald ein User den Sortierbutton klickt
++     * stellt ein, ob die  Sortieroptionen im Layout sichtbar sind
++     */
++    private fun sortList(){
++        val sortOptions: LinearLayout = findViewById(R.id.sort_options)
++        if (sortOptions.visibility == View.VISIBLE) {
++            sortOptions.visibility = View.GONE
++        } else {
++            sortOptions.visibility = View.VISIBLE
++        }
+ 
+-    private fun searchProducts(keyword: String): ArrayList<ProductList> {
+-        val filteredList: ArrayList<ProductList> = ArrayList()
++    }
++    /**
++     * Methode sortiert Produktpreise aufsteigend, sobald der User den im Layout definierten Text anklickt
++     * Die neue Liste wird sortiert ausgegeben
++     */
++    fun onSortAscendingClick(view: View) {
++        currentSort = Sort.ASCENDING
++        sortListByCurrentSort()
++        sortList()
++    }
+ 
+-        for (product in allProducts) {
+-            if (product.name.contains(keyword, true)) {
+-                filteredList.add(product)
+-            }
++    /**
++     * Methode sortiert Produktpreise absteigend, sobald der User den im Layout definierten Text anklickt
++     * Die neue Liste wird sortiert ausgegeben
++     */
++    fun onSortDescendingClick(view: View) {
++        currentSort = Sort.DESCENDING
++        sortListByCurrentSort()
++        sortList()
++    }
++
++    /**
++     * Methode sortiert Produktpreise nach der momentan definierten Sortieroption
++     */
++    private fun sortListByCurrentSort() {
++        when (currentSort) {
++            Sort.ASCENDING -> listAdapter.sortByPriceAscending()
++            Sort.DESCENDING -> listAdapter.sortByPriceDescending()
++            Sort.NONE -> listAdapter.updateList(allProducts)
+         }
++    }
+ 
+-        return filteredList
+-    }
++
++
+ }
++
+Index: app/src/main/java/shop/ebusiness/database/DatabaseHelper.kt
+===================================================================
+diff --git a/app/src/main/java/shop/ebusiness/database/DatabaseHelper.kt b/app/src/main/java/shop/ebusiness/database/DatabaseHelper.kt
+--- a/app/src/main/java/shop/ebusiness/database/DatabaseHelper.kt	
++++ b/app/src/main/java/shop/ebusiness/database/DatabaseHelper.kt	
+@@ -21,35 +21,35 @@
+     companion object{
+ 
+ 
+-         val db_name="Bloodrecommendation"
+-        private val db_version= 1
++        val db_name="Bloodrecommendation"
++        private var db_version= 4
+ 
+         //Tabellenwerte für Lebensmittel
+         private val table_name1="Lebensmittel"
+-         val ID="LebensmittelId"
+-         val name="Lebensmittelname"
+-         val war="Warnung"
+-         val bes="Lebensmittelproduktbeschreibung"
+-         val pos1="PositiveWirkung1"
+-         val cat="Lebensmittelkategorie"
+-         val her="Hersteller"
+-         val kalo="Kalorien"
+-         val einh="Einheit"
+-         val anzahl="Anzahl"
+-         val einh_anz="EinheitAnzahl"
+-         val fettanteil="Fettanteil"
+-         val einh_fett="EinheitFettanteil"
+-         val fol="Folsäureanteil"
+-         val einh_fol="EinheitFolsäure"
+-         val vitc="VitaminCanteil"
+-         val einh_vitC="EinheitVitaminC"
+-         val vege="Vegetarisch"
+-         val veg="Vegan"
+-         val prot="Proteinreich"
+-         val fet="Fettarm"
+-         val kal="Kaloriearm"
+-         val pr="Preis"
+-         val einh_preis="EinheitPreis"
++        val ID="LebensmittelId"
++        val name="Lebensmittelname"
++        val war="Warnung"
++        val bes="Lebensmittelproduktbeschreibung"
++        val pos1="PositiveWirkung1"
++        val cat="Lebensmittelkategorie"
++        val her="Hersteller"
++        val kalo="Kalorien"
++        val einh="Einheit"
++        val anzahl="Anzahl"
++        val einh_anz="EinheitAnzahl"
++        val fettanteil="Fettanteil"
++        val einh_fett="EinheitFettanteil"
++        val fol="Folsäureanteil"
++        val einh_fol="EinheitFolsäure"
++        val vitc="VitaminCanteil"
++        val einh_vitC="EinheitVitaminC"
++        val vege="Vegetarisch"
++        val veg="Vegan"
++        val prot="Proteinreich"
++        val fet="Fettarm"
++        val kal="Kaloriearm"
++        val pr="Preis"
++        val einh_preis="EinheitPreis"
+ 
+         //Tabellenwerte für Produkteffekt
+         private val table_name2="Produkteffekt"
+@@ -91,11 +91,12 @@
+         db?.execSQL(CREATE_TABLE)
+         db?.execSQL(CREATE_TABLE2)
+         db?.execSQL(CREATE_TABLE3)
+-
+         db?.execSQL(INSERT_TABLE)
+         db?.execSQL(INSERT_TABLE2)
+         db?.execSQL(INSERT_TABLE3)
+         db?.execSQL(INSERT_TABLE4)
++
++
+     }
+     /**
+      * Diese Funktion erneuert die Tabellen "Lebensmittel", "Produkteffekt" und "BlutwertReferenztabelle" in der SQLite-Datenbank, sofern es zu einer neueren Datenbank Version kommt.
+@@ -104,10 +105,16 @@
+      * @param newVersion Variable vom Typ INT neue Version der Datenbank
+      */
+     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+-        db?.execSQL(DROP_TABLE)
+-        db?.execSQL(DROP_TABLE2)
+-        db?.execSQL(DROP_TABLE3)
+-        onCreate(db)
++        if(oldVersion<4) {
++            db?.execSQL(DROP_TABLE)
++            db?.execSQL(DROP_TABLE2)
++            db?.execSQL(DROP_TABLE3)
++            onCreate(db)
++            db?.execSQL("INSERT INTO $table_name1 VALUES (3,0,'Stück', 'Ananas', 'Enthält Fructose', '', 'Reich an Vitaminen', 'Früchte','Rewe',59,'kcal',0.15, 'g',2,'µg', 19, 'mg', 1,1,0,1,1,1.96, '€/Stück')")
++            db?.execSQL("INSERT INTO $table_name1 VALUES (4,0,'Dose', 'Kichererbsen', '', '', 'Reich an Proteinen', 'Hülsenfrüchte','Rewe',364,'kcal',6, 'g',0.4,'mg', 4, 'mg', 1,1,1,0,0,2.10, '€/Dose')")
++            db?.execSQL("INSERT INTO $table_name2 VALUES(4,1,1,0)")
++        }
++
+     }
+ 
+ 
+@@ -115,18 +122,10 @@
+      * Diese Funktion liest alle in der Datenbank gespeicherten Lebensmittel der Kategorie Früchte aus
+      * @return gibt eine Liste mit den Lebensmitteln der Kategorie Früchte zurück
+      */
+-
+     fun getAllFruits():List<ProductList>{
+         val productList=ArrayList<ProductList>()
+-        val db= this.writableDatabase
+-        val selectQuery="SELECT * FROM $table_name1 WHERE $cat ='Früchte' "
+-        try{
+-            db.execSQL(selectQuery)
+-        }
+-        catch (e:SQLiteException){
+-            db.execSQL(CREATE_TABLE)
+-            db.execSQL(INSERT_TABLE)
+-        }
++        val db:SQLiteDatabase=writableDatabase
++        val selectQuery="SELECT * FROM $table_name1 WHERE $cat='Früchte' "
+         val cursor: Cursor =db.rawQuery(selectQuery,null)
+         if(cursor.moveToFirst()){
+             do{
+@@ -137,17 +136,17 @@
+         cursor.close()
+         db.close()
+         return productList
+-
+     }
+ 
++
+     /**
+-     * Diese Funktion liest alle in der Datenbank gespeicherten Lebensmittel der Kategorie Gemüse aus
+-     * @return gibt eine Liste mit den Lebensmitteln der Kategorie Gemüse zurück
++     * Diese Funktion liest alle in der Datenbank gespeicherten Lebensmittel der Kategorie Hülsenfrüchte aus
++     * @return gibt eine Liste mit den Lebensmitteln der Kategorie Hülsenfrüchte zurück
+      */
+-    fun getAllVegetables():List<ProductList>{
++    fun getAllPulse():List<ProductList>{
+         val productList=ArrayList<ProductList>()
+         val db:SQLiteDatabase=writableDatabase
+-        val selectQuery="SELECT * FROM $table_name1 WHERE $cat='Gemüse' "
++        val selectQuery="SELECT * FROM $table_name1 WHERE $cat='Hülsenfrüchte' "
+         val cursor: Cursor =db.rawQuery(selectQuery,null)
+         if(cursor.moveToFirst()){
+             do{
+@@ -186,7 +185,7 @@
+     /**
+      * Diese Funktion sucht basierend auf einem Keywort Lebensmittel in der Datenbank
+      * @param keyword ein Zeichen/Wort als Parameter
+-     * @return gibt eine Liste mit den Lebensmitteln zurück, welche dem Keyword ähneln
++     * @return gibt eine Liste mit den Lebensmitteln zurück, welche mit dem gleichen Anfangsbuchstaben wie das Keyword beginnen
+      */
+     fun search(keyword: String): List<ProductList?>? {
+         var products: MutableList<ProductList?>? = null
+@@ -194,7 +193,7 @@
+         val sqLiteDatabase = writableDatabase
+         val cursor = sqLiteDatabase.rawQuery(
+             "select * from $table_name1 where $name like ?", arrayOf(
+-                "%$keyword%"
++                "$keyword%"
+             )
+         )
+         if (cursor.moveToFirst()) {
+@@ -209,12 +208,6 @@
+         return products
+     }
+ 
+-    //TODO:IMPLEMENTATION
+-    /*
+-    fun getAllRecommendations():List<shop.ebusiness.model.ProductList>{}
+-    fun getAllLastOrdered():List<shop.ebusiness.model.ProductList>{}
+-
+-    */
+ 
+ }
+ 
+Index: .idea/workspace.xml
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -10,9 +10,30 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="e0ab3d13-40ea-4168-824b-b871148c59fc" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/model/HomeProductListAdapter.kt" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_arrow_back_24.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/baseline_sort_24.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/product_home_screen_item.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/HomeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/HomeActivity.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/MainActivity.kt" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/ProductDetails.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/ProductDetails.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/util/Buttons.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/util/Buttons.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/SearchActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/SearchActivity.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/database/DatabaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/database/DatabaseHelper.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/database/DbManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/database/DbManager.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/model/ProductList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/model/ProductList.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/model/ProductListAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/model/ProductListAdapter.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/home_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/home_activity.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/search_activity.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/search_activity.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -67,6 +88,9 @@
+     <option name="RECENT_TEMPLATES">
+       <list>
+         <option value="valueResourceFile" />
++        <option value="resourceFile" />
++        <option value="layoutResourceFile" />
++        <option value="Kotlin Class" />
+       </list>
+     </option>
+   </component>
+Index: app/src/main/java/shop/ebusiness/database/DbManager.kt
+===================================================================
+diff --git a/app/src/main/java/shop/ebusiness/database/DbManager.kt b/app/src/main/java/shop/ebusiness/database/DbManager.kt
+--- a/app/src/main/java/shop/ebusiness/database/DbManager.kt	
++++ b/app/src/main/java/shop/ebusiness/database/DbManager.kt	
+@@ -5,34 +5,63 @@
+ import android.database.sqlite.SQLiteDatabase
+ import shop.ebusiness.model.ProductList
+ 
++/**
++ * Diese Klasse verwaltet die Datenbank.
++ * @param c der Kontext der Anwendung
++ */
+ class DbManager(c: Context) {
+     private lateinit var dbHelper: DatabaseHelper
+     private var context: Context = c
+     private lateinit var  database: SQLiteDatabase
+ 
+-
++    /**
++     * Öffnet die Datenbank.
++     * @throws SQLException falls die Datenbank nicht geöffnet werden kann
++     * @return gibt eine Instanz von DbManager zurück
++     */
+     @Throws(SQLException::class)
+     fun open(): DbManager? {
+         dbHelper = DatabaseHelper(context)
+         database = dbHelper.writableDatabase
+         return this
+     }
++
++    /**
++     * Schließt die Datenbank.
++     */
+     fun close() {
+         dbHelper.close()
+     }
+ 
++    /**
++     * Gibt alle Früchte zurück.
++     * @return gibt eine Liste von ProductList-Objekten zurück
++     */
+     fun getAllFruits(): List<ProductList> {
+         return dbHelper.getAllFruits()
+     }
+ 
+-    fun getAllVegetables(): List<ProductList> {
+-        return dbHelper.getAllVegetables()
++    /**
++     * Gibt alle Hülsenfrüchte zurück.
++     * @return gibt eine Liste von ProductList-Objekten zurück
++     */
++    fun getAllPulse(): List<ProductList> {
++        return dbHelper.getAllPulse()
+     }
+ 
++    /**
++     * Gibt alle Produkte zurück.
++     * @return gibt eine ArrayList von ProductList-Objekten zurück
++     */
+     fun getAllProducts(): ArrayList<ProductList> {
+         return dbHelper.getAllProducts()
+     }
+ 
++    /**
++     * Sucht nach einem Keyword in der Datenbank.
++     * @param keyword das Keyword, nach dem gesucht werden soll
++     * @return gibt eine Liste von ProductList-Objekten zurück oder null, falls nichts gefunden wurde
++     */
+     fun search(keyword: String): List<ProductList?>? {
+         return dbHelper.search(keyword)
+     }

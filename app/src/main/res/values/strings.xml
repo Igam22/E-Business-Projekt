@@ -14,4 +14,17 @@
     <string name="title_activity_search">SearchActivity</string>
     <string name="productnameplaceholder">ProductName</string>
     <string name="productpriceplaceholder">ProductPrice</string>
+<<<<<<< Updated upstream
+=======
+    <string name="productdescriptionplaceholder">ProductDescription</string>
+    <string name="title_activity_home">Home Activity</string>
+    <string name="inhaltsbereich_f_r_scrollbare_elemente">ScrollbarElement</string>
+    <string name="alle">alle\n</string>
+    <string name="fr_chte">Früchte</string>
+    <string name="h_lsenfr_chte">Hülsenfrüchte</string>
+    <string name="preis_aufsteigend_sortieren">Preis aufsteigend sortieren</string>
+    <string name="preis_absteigend_sortieren">Preis absteigend sortieren</string>
+    <string name="sortieren">sortieren</string>
+    <string name="zur_ck">Zurück</string>
+>>>>>>> Stashed changes
 </resources>
