@@ -48,8 +48,9 @@ class ShoppingCart : ComponentActivity() {
         dbManager = DbManager(this)
         dbManager.open()
 
+
         setContent {
-            ProductPreview()
+            ProductDetails()
         }
     }
 
@@ -154,8 +155,17 @@ class ShoppingCart : ComponentActivity() {
                                     verticalArrangement = Arrangement.Center,
                                     horizontalAlignment = Alignment.CenterHorizontally
                                 ) {
-                                    AddIcon()
+                                    AddIcon(product = product)
                                 }
+                            }
+                            Row(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .width(392.dp),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                ShowTotalAmount()
+
                             }
 
 
@@ -183,6 +193,22 @@ class ShoppingCart : ComponentActivity() {
             )
         }
     }
+
+    private @Composable
+    fun ShowTotalAmount() {
+        Text(
+            text = "Total Amount: ${product.pr * product.pr} €",
+            style = TextStyle(
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color(0xFF2A6F62)
+            ),
+            modifier = Modifier.padding(vertical = 8.dp),
+            textAlign = TextAlign.Center
+        )
+    }
+
+    // einh_anz, anz, einh, pr
 
     @Composable
     fun ShowManufacturer() {
@@ -234,7 +260,7 @@ class ShoppingCart : ComponentActivity() {
         Text(text = "Produkt Details")
     }
 
-    val product = ProductList().apply { name = "Erdbeeren"; her = "Hersteller"; pr = 4.99; war = "Erntefrische Erdebberen in demeter Bio-Qualität. Fruchtig, Süß und saftig." }
+    val product = ProductList().apply { name = "Erdbeeren"; her = "Hersteller"; pr = 4.99; war = "Erntefrische Erdebberen in demeter Bio-Qualität. Fruchtig, Süß und saftig."; einh_anz = "100g"; anz = 1; einh = "g" }
 
 
 
@@ -250,17 +276,29 @@ class ShoppingCart : ComponentActivity() {
     @Composable
     fun DisplayDescription(product: ProductList) {
         Surface(
-            color = Color.White, // Set the background color of the box to white
-            shape = RoundedCornerShape(8.dp), // Set the shape of the box (rounded corners)
-            border = BorderStroke(1.dp, Color(0xFF348077)), // Set the border color and width
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp) // Set the padding
+            color = Color.White,
+            shape = RoundedCornerShape(8.dp),
+            border = BorderStroke(1.dp, Color(0xFF348077)),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            Text(
-                text = product.war,
-                style = MaterialTheme.typography.bodyLarge, // Apply the desired Material font style
-                modifier = Modifier.padding(8.dp) // Set the padding within the box
-            )
+            Column(modifier = Modifier.padding(8.dp)) {
+                Text(
+                    text = "Beschreibung",
+                    style = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        color = Color(0xFF2A6F62)
+                    ),
+                    modifier = Modifier.padding(bottom = 14.dp)
+                )
+                Text(
+                    text = product.war,
+                    style = MaterialTheme.typography.bodyLarge, // Adjust the typography style as needed
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
         }
     }
-        
-    }
+
+
+}

@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import shop.ebusiness.model.ProductList
 
 class Buttons {
 
@@ -53,9 +54,18 @@ fun DecreaseIcon() {
 }
 
 @Composable
-fun AddIcon() {
+fun AddIcon(product: ProductList) : Int {
+    var anzInt = product.einh_anz.toInt()
+
     Button(
-        onClick = {},
+        onClick = {
+            // Increment einh_anz based on einh value
+            var anzInt = product.einh_anz.toInt()
+            when (product.einh) {
+                "g" -> product.einh_anz += 100
+                "Stck" -> anzInt++
+            }
+        },
         shape = CircleShape,
         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4FC0B3))
     ) {
@@ -65,7 +75,12 @@ fun AddIcon() {
             tint = MaterialTheme.colorScheme.onSurface
         )
     }
+    return anzInt
 }
+
+
+// einh_anz
+
 
 
 @Composable
