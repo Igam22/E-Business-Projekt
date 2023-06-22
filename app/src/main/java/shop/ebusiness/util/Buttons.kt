@@ -4,7 +4,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
@@ -54,18 +53,10 @@ fun DecreaseIcon() {
 }
 
 @Composable
-fun AddIcon(product: ProductList) : Int {
-    var anzInt = product.einh_anz.toInt()
+fun AddIcon(product: ProductList) {
 
     Button(
-        onClick = {
-            // Increment einh_anz based on einh value
-            var anzInt = product.einh_anz.toInt()
-            when (product.einh) {
-                "g" -> product.einh_anz += 100
-                "Stck" -> anzInt++
-            }
-        },
+        onClick = {},
         shape = CircleShape,
         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4FC0B3))
     ) {
@@ -74,12 +65,7 @@ fun AddIcon(product: ProductList) : Int {
             contentDescription = "Plus",
             tint = MaterialTheme.colorScheme.onSurface
         )
-    }
-    return anzInt
-}
-
-
-// einh_anz
+    }}
 
 
 

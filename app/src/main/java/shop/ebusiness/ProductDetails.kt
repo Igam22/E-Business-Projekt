@@ -3,6 +3,7 @@ package shop.ebusiness
 import CircleBackground
 import CreateProductImage
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -45,14 +46,32 @@ class ShoppingCart : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dbManager = DbManager(this)
-        dbManager.open()
 
 
         setContent {
             ProductDetails()
         }
     }
+
+    fun performDatabaseOperations(context: Context, keyword: String): List<ProductList?>? {
+        val dbManager = DbManager(context)
+        dbManager.open()
+
+        // Führe spezifische Operationen durch
+        val allProducts = dbManager.getAllProducts()
+        val fruits = dbManager.getAllFruits()
+        val vegetables = dbManager.getAllVegetables()
+        val searchResults = dbManager.search(keyword)
+
+        // Schließe die Datenbankverbindung
+        dbManager.close()
+
+        // Gib das Ergebnis zurück
+        return searchResults
+    }
+
+
+
 
 
     @Composable
@@ -194,7 +213,7 @@ class ShoppingCart : ComponentActivity() {
         }
     }
 
-    private @Composable
+    @Composable
     fun ShowTotalAmount() {
         Text(
             text = "Total Amount: ${product.pr * product.pr} €",

@@ -10,8 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0ab3d13-40ea-4168-824b-b871148c59fc" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/ProductDetails.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/ProductDetails.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/util/Buttons.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/shop/ebusiness/util/Buttons.kt" afterDir="false" />
@@ -82,6 +80,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2RQvMZm064EzjDvj87iC8JXyPfj" />
   <component name="ProjectViewState">
